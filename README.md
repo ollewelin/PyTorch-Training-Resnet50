@@ -1,7 +1,5 @@
 # PyTorch-Training-Resnet50. AUTO save bee images on external USB hard drive
 
-## Training and export to ONNX model
-
 ## Related links
 
 ### Trainig on Ubuntu PC with or without GPU PyTorch
@@ -12,7 +10,10 @@ https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
 
 https://github.com/dusty-nv/jetson-inference
 
-## Test result on PC test
+
+## Training and export to ONNX model
+
+### Test result on PC test
 
 ![](test_bee_ant.png)
 
