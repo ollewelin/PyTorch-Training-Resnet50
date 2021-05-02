@@ -16,6 +16,9 @@ Then close the two test windows to export to ONNX model
 
 ## Run on Jetson Nano
 
-... to be continue ..
-
+... to be continue .. not finnish yet
+    
+    imagenet2.cpp 
+    
+Will collect image if class 1 >0.5 probablility and store on external USB hard drive ..
 
