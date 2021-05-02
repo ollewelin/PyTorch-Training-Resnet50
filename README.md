@@ -20,7 +20,7 @@ Then close the two test windows to export to ONNX model
     
     imagenet2.cpp 
     
-Will collect image if class 1 >0.5 probablility and store on external USB hard drive ..
+Will collect image if class 1 > thresshold probablility and store on external USB hard drive ..
 
 ![](store_img.jpg)
 
