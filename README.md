@@ -4,7 +4,13 @@
 
 ## Related links
 
+### Trainig on Ubuntu PC with or without GPU PyTorch
+
 https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
+
+### Interferance on Jetson Nano
+
+https://github.com/dusty-nv/jetson-inference
 
 ## Test result
 
