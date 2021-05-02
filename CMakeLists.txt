@@ -1,3 +1,5 @@
+#file(GLOB imagenetSources *.cpp)
+#file(GLOB imagenetIncludes *.h )
 
 # require CMake 2.8 or greater
 cmake_minimum_required(VERSION 2.8)
