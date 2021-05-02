@@ -1,4 +1,4 @@
-# PyTorch-Training-Resnet50
+# PyTorch-Training-Resnet50. AUTO save bee images on external USB hard drive
 
 ## Training and export to ONNX model
 
