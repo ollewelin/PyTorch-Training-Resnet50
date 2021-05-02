@@ -77,7 +77,7 @@ Will collect image if class 1 > thresshold probablility and store on external US
 
 ![](Auto_save_image_from_video.png)
 
-### Auto create inage folder on external USB disk
+### Auto create image folder on external USB disk
 
 ![](folder_on_external_USB.png)
 
