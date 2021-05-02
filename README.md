@@ -12,7 +12,7 @@ https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
 
 https://github.com/dusty-nv/jetson-inference
 
-## Test result
+## Test result on PC test
 
 ![](test_bee_ant.png)
 
