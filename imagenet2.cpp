@@ -15,6 +15,16 @@
 #endif
 
 
+#include <iostream>
+#include <fstream>
+
+// C++ program to create a directory in Linux
+#include <bits/stdc++.h>
+#include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
+using namespace std;
+
 bool signal_recieved = false;
 
 void sig_handler(int signo)
@@ -118,6 +128,28 @@ int main( int argc, char** argv )
     int folder_nr = 0;
     int picture_nr = 0;
 
+    std::string usb_disk_path = "../../../../../media/jetson/1TB-USB/";
+    std::string pictures_store_path = "pic";
+    std::string str_foldernr = "0";
+    std::string str_slash = "/";
+    std::string str_framenr = "0";
+    std::string str_jpg = ".jpg";
+    std::string foldername;
+
+    std::string pic_file = usb_disk_path;
+
+/*
+    std::string str1 = "./data/class";
+    std::string str2 = "/";
+    std::string str3 = ".jpg";
+
+    int rand_img_indx = rand() % (custom_dataset_size/nr_of_classes);
+    std::string test_class_str = std::to_string(test_class);
+    std::string test_img_str = std::to_string(rand_img_indx);
+    test_file = str1 + test_class_str + str2 + test_img_str + str3;
+    test_file = str1 + test_class_str + str2 + "617" + str3;
+ */
+
 	while( !signal_recieved )
 	{
 		// capture next image image
@@ -155,11 +187,27 @@ int main( int argc, char** argv )
                 {
                     if(record_frame==0){
                         folder_nr++;
+                        str_foldernr = std::to_string(folder_nr);
+                        foldername = usb_disk_path + pictures_store_path + str_foldernr;
+                        // Creating a directory
+                        char arr[foldername.length()+1];
+                        strcpy(arr,foldername.c_str());
+                        if (mkdir(arr, 0777) == -1)
+                            cerr << "Error :  " << strerror(errno) << endl;
+                        else
+                        cout << "Directory created";
                     }
-                    printf("Confidence = %f record frame =%d\n", confidence, record_frame);
+                    str_framenr = std::to_string(record_frame);
 
+                    pic_file = foldername + str_slash + str_framenr + str_jpg;
+                    printf("Confidence = %f record frame =%d\n", confidence, record_frame);
+                    printf("folder_nr = %d\n", folder_nr );
                     printf("store images\n");
-                    saveImage("../../../../../media/jetson/1TB-USB/store_img.jpg", image, input->GetWidth(), input->GetHeight());
+                   // saveImage("../../../../../media/jetson/1TB-USB/store_img.jpg", image, input->GetWidth(), input->GetHeight());
+                    char arr[pic_file.length()+1];
+                    strcpy(arr,pic_file.c_str());
+                    saveImage(arr, image, input->GetWidth(), input->GetHeight());
+
                     record_frame++;
                 }
                 else{
