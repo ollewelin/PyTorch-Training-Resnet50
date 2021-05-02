@@ -73,7 +73,12 @@ Will collect image if class 1 > thresshold probablility and store on external US
 
     root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition#./imagenet2 --model=./resnet50.onnx --input_blob=input --output_blob=output --labels=./labels.txt csi://0
 
-### Stored image on externa USB disk "../../../../../media/jetson/1TB-USB/store_img.jpg"
+### Auto save image on external USB disk
 
-![](store_img.jpg)
+![](Auto_save_image_from_video.png)
+
+### Auto create inage folder on external USB disk
+
+![](folder_on_external_USB.png)
+
 
