@@ -11,7 +11,7 @@ https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
 https://github.com/dusty-nv/jetson-inference
 
 
-## Training and export to ONNX model
+## Training and export to ONNX model on PC
 
 ### Test result on PC test
 
