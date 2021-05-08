@@ -23,6 +23,8 @@
 #include <iostream>
 #include <sys/stat.h>
 #include <sys/types.h>
+
+#include <vector>
 using namespace std;
 
 bool signal_recieved = false;
@@ -56,6 +58,9 @@ int usage()
 
 int main( int argc, char** argv )
 {
+
+    const int img_buff_nr = 10;//Store in RAM first before save on disk
+    std::vector<uchar3> imgBuff;
 	/*
 	 * parse command line
 	 */
@@ -121,15 +126,17 @@ int main( int argc, char** argv )
 	 * processing loop
 	 */
 
-
-    const int record_frames_min = 10;
+  //
+    const int record_frames_min = 1;
     int record_frame = 0;
-    const float thresshold = 0.3f;
+    const float thresshold = 0.5f;
     int folder_nr = 0;
     int picture_nr = 0;
 
     std::string usb_disk_path = "../../../../../media/jetson/1TB-USB/";
+ //   std::string usb_disk_path = "./data/";
     std::string pictures_store_path = "pic";
+    std::string pictures_store_path_no_prey = "pic_cat_No_prey";
     std::string str_foldernr = "0";
     std::string str_slash = "/";
     std::string str_framenr = "0";
@@ -149,7 +156,11 @@ int main( int argc, char** argv )
     test_file = str1 + test_class_str + str2 + test_img_str + str3;
     test_file = str1 + test_class_str + str2 + "617" + str3;
  */
+			system("echo 15 > ../../../../../sys/class/gpio/export");
+			system("echo out > ../../../../../sys/class/gpio/gpio79/direction");
+			system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
 
+    int pre_class = 0;
 	while( !signal_recieved )
 	{
 		// capture next image image
@@ -183,8 +194,16 @@ int main( int argc, char** argv )
 
                 printf("Olle print %s\n", str);
 
-                if((img_class == 1 && confidence > thresshold) || record_frame > 0 && record_frame < record_frames_min)
+                if(img_class == 1 && confidence > thresshold)
                 {
+			printf("Set GPIO pin 79 High\n");
+			system("echo 1 > ../../../../../sys/class/gpio/gpio79/value");
+
+                    if(img_class != pre_class)
+                    {
+                        record_frame=0;
+                    }
+                    pre_class=1;
                     if(record_frame==0){
                         folder_nr++;
                         str_foldernr = std::to_string(folder_nr);
@@ -197,22 +216,69 @@ int main( int argc, char** argv )
                         else
                         cout << "Directory created";
                     }
-                    str_framenr = std::to_string(record_frame);
 
+                    str_framenr = std::to_string(record_frame);
                     pic_file = foldername + str_slash + str_framenr + str_jpg;
                     printf("Confidence = %f record frame =%d\n", confidence, record_frame);
                     printf("folder_nr = %d\n", folder_nr );
                     printf("store images\n");
                    // saveImage("../../../../../media/jetson/1TB-USB/store_img.jpg", image, input->GetWidth(), input->GetHeight());
+
                     char arr[pic_file.length()+1];
                     strcpy(arr,pic_file.c_str());
                     saveImage(arr, image, input->GetWidth(), input->GetHeight());
 
                     record_frame++;
                 }
+                if(img_class == 2 && confidence > thresshold)
+                {
+                //No prey
+                //pictures_store_path_no_prey
+			printf("Set GPIO pin 79 Low\n");
+			system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
+
+                    if(img_class != pre_class)
+                    {
+                        record_frame=0;
+                    }
+                    pre_class=2;
+
+                                       if(record_frame==0){
+                        folder_nr++;
+                        str_foldernr = std::to_string(folder_nr);
+                        foldername = usb_disk_path + pictures_store_path_no_prey + str_foldernr;
+                        // Creating a directory
+                        char arr[foldername.length()+1];
+                        strcpy(arr,foldername.c_str());
+                        if (mkdir(arr, 0777) == -1)
+                            cerr << "Error :  " << strerror(errno) << endl;
+                        else
+                        cout << "Directory created";
+                    }
+
+                    str_framenr = std::to_string(record_frame);
+                    pic_file = foldername + str_slash + str_framenr + str_jpg;
+                    printf("Confidence = %f record frame =%d\n", confidence, record_frame);
+                    printf("folder_nr = %d\n", folder_nr );
+                    printf("store images\n");
+                   // saveImage("../../../../../media/jetson/1TB-USB/store_img.jpg", image, input->GetWidth(), input->GetHeight());
+
+                    char arr[pic_file.length()+1];
+                    strcpy(arr,pic_file.c_str());
+                    saveImage(arr, image, input->GetWidth(), input->GetHeight());
+
+                    record_frame++;
+
+
+                }
                 else{
                     record_frame = 0;
+			printf("Set GPIO pin 79 Low\n");
+			system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
+			pre_class=0;
                 }
+
+
 
 
 
