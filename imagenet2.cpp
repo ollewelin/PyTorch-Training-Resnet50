@@ -156,7 +156,7 @@ int main( int argc, char** argv )
     test_file = str1 + test_class_str + str2 + test_img_str + str3;
     test_file = str1 + test_class_str + str2 + "617" + str3;
  */
-			system("echo 15 > ../../../../../sys/class/gpio/export");
+			system("echo 79 > ../../../../../sys/class/gpio/export");
 			system("echo out > ../../../../../sys/class/gpio/gpio79/direction");
 			system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
 
