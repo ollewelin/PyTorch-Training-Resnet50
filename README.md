@@ -16,7 +16,7 @@ https://github.com/dusty-nv/jetson-inference
 ### Number of class settings in train.py file
     
     ...
-    # Here the size of each output sample is set to 2.
+    # Here the size of each output sample is set to 3.
     # Alternatively, it can be generalized to nn.Linear(num_ftrs, len(class_names)).
     model_ft.fc = nn.Linear(num_ftrs, 3)  # change here number of classes
     ...
