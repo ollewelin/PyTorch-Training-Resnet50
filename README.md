@@ -13,6 +13,19 @@ https://github.com/dusty-nv/jetson-inference
 
 ## Training and export to ONNX model on PC
 
+### Data Path structure
+
+    $ ./data/hymenoptera_data/train/Background/imgXX.jpg
+    $ ./data/hymenoptera_data/train/Cat1/imgXX.jpg
+    $ ./data/hymenoptera_data/train/Cat2/imgXX.jpg
+    $ ./data/hymenoptera_data/val/Background/imgXX.jpg
+    $ ./data/hymenoptera_data/val/Cat1/imgXX.jpg
+    $ ./data/hymenoptera_data/val/Cat2/imgXX.jpg
+
+### Start train command
+
+    $ ./python train.py
+
 ### Test result on PC test
 
 ![](test_bee_ant.png)
