@@ -13,6 +13,14 @@ https://github.com/dusty-nv/jetson-inference
 
 ## Training and export to ONNX model on PC
 
+### Number of class settings in train.py file
+    
+    ...
+    # Here the size of each output sample is set to 2.
+    # Alternatively, it can be generalized to nn.Linear(num_ftrs, len(class_names)).
+    model_ft.fc = nn.Linear(num_ftrs, 3)  # change here number of classes
+    ...
+
 ### Data Path structure
 
     $ ./data/hymenoptera_data/train/Background/imgXX.jpg
