@@ -1,4 +1,4 @@
-# PyTorch-Training-Resnet50. AUTO save bee images on external USB hard drive
+# PyTorch-Training-Resnet50. AUTO save cat (or other) images on external USB hard drive
 
 ![](cat_door.png)
 
