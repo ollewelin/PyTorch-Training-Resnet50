@@ -1,5 +1,7 @@
 # PyTorch-Training-Resnet50. AUTO save bee images on external USB hard drive
 
+![](cat_door.png)
+
 ## Related links
 
 ### Trainig on Ubuntu PC with or without GPU PyTorch
