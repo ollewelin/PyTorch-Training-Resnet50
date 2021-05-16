@@ -161,13 +161,19 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
 
+            # Make a Temporal copy 
+            if phase == 'val' :
+                print("Make epoch copy")
+                print("Save model epoch")
+                torch.save(model_ft.state_dict(), "./model_saved_epoch_" + str(epoch) + ".pt")
+
             # deep copy the model
-            if phase == 'val' and epoch_acc > best_acc:
+            if phase == 'val' and epoch_acc >= best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
                 print("Make a best copy")
-                print("Save model")
-                torch.save(model_ft.state_dict(), "./model_saved.pt")
+         #       print("Save model")
+         #       torch.save(model_ft.state_dict(), "./model_saved.pt")
     print()
 
     time_elapsed = time.time() - since
