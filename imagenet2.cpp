@@ -17,12 +17,16 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream> // writing to memory (a string)
+#include <string>
 
 // C++ program to create a directory in Linux
 #include <bits/stdc++.h>
 #include <iostream>
 #include <sys/stat.h>
 #include <sys/types.h>
+//#include <opencv2/opencv.hpp>
+//#include <opencv2/core/core.hpp> // Basic OpenCV structures (cv::Mat, Scalar)
 
 #include <vector>
 using namespace std;
@@ -58,6 +62,9 @@ int usage()
 
 int main( int argc, char** argv )
 {
+
+    std::ostringstream oss; // open a string for writing EDIT: Fixed from original post
+//    oss << "Writing to string in memory"; // output to string
 
     const int img_buff_nr = 10;//Store in RAM first before save on disk
     std::vector<uchar3> imgBuff;
@@ -129,7 +136,9 @@ int main( int argc, char** argv )
   //
     const int record_frames_min = 1;
     int record_frame = 0;
-    const float thresshold = 0.5f;
+   // const float thresshold = 0.5f;
+    const float thresshold_class_1 = 0.5f;
+     const float thresshold_class_2 = 1.9f;
     int folder_nr = 0;
     int picture_nr = 0;
 
@@ -145,17 +154,6 @@ int main( int argc, char** argv )
 
     std::string pic_file = usb_disk_path;
 
-/*
-    std::string str1 = "./data/class";
-    std::string str2 = "/";
-    std::string str3 = ".jpg";
-
-    int rand_img_indx = rand() % (custom_dataset_size/nr_of_classes);
-    std::string test_class_str = std::to_string(test_class);
-    std::string test_img_str = std::to_string(rand_img_indx);
-    test_file = str1 + test_class_str + str2 + test_img_str + str3;
-    test_file = str1 + test_class_str + str2 + "617" + str3;
- */
 			system("echo 79 > ../../../../../sys/class/gpio/export");
 			system("echo out > ../../../../../sys/class/gpio/gpio79/direction");
 			system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
@@ -194,7 +192,7 @@ int main( int argc, char** argv )
 
                 printf("Olle print %s\n", str);
 
-                if(img_class == 1 && confidence > thresshold)
+                if(img_class == 1 && confidence > thresshold_class_1)
                 {
 			printf("Set GPIO pin 79 High\n");
 			system("echo 1 > ../../../../../sys/class/gpio/gpio79/value");
@@ -227,10 +225,11 @@ int main( int argc, char** argv )
                     char arr[pic_file.length()+1];
                     strcpy(arr,pic_file.c_str());
                     saveImage(arr, image, input->GetWidth(), input->GetHeight());
+                    //saveImage(oss, image, input->GetWidth(), input->GetHeight());
 
                     record_frame++;
                 }
-                if(img_class == 2 && confidence > thresshold)
+                if(img_class == 2 && confidence > thresshold_class_2)
                 {
                 //No prey
                 //pictures_store_path_no_prey
