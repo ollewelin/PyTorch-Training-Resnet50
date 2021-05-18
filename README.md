@@ -4,6 +4,8 @@
 
 ![](Cat_with_prey.jpg)
 
+        $ python load_test_export.py
+
 ![](data_loader.png)
 
 ## Related links
