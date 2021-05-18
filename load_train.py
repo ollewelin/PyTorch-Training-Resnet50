@@ -13,6 +13,8 @@ import time
 import os
 import copy
 
+from torchvision.transforms.transforms import RandomAffine
+
 plt.ion()   # interactive mode
 
 # Data augmentation and normalization for training
@@ -88,12 +90,13 @@ imshow(out, title=[class_names[x] for x in classes])
 #input("Press Enter to continue...")
 
 model_ft = models.resnet50(pretrained=True)
-
 num_ftrs = model_ft.fc.in_features
 # Here the size of each output sample is set to 2.
 # Alternatively, it can be generalized to nn.Linear(num_ftrs, len(class_names)).
 model_ft.fc = nn.Linear(num_ftrs, 3)
 model_ft.load_state_dict(torch.load("./model_saved.pt"))
+model_ft = model_ft.to(device)
+
 model_ft = model_ft.to(device)
 
 criterion = nn.CrossEntropyLoss()
@@ -183,12 +186,20 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
 
+            # Make a Temporal copy 
+            if phase == 'val' :
+                print("Make epoch copy")
+                print("Save model epoch")
+                torch.save(model_ft.state_dict(), "./model_saved_epoch_" + str(epoch) + ".pt")
+
             # deep copy the model
-            if phase == 'val' and epoch_acc > best_acc:
+            if phase == 'val' and epoch_acc >= best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
-
-        print()
+                print("Make a best copy")
+         #       print("Save model")
+         #       torch.save(model_ft.state_dict(), "./model_saved.pt")
+    print()
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
@@ -205,19 +216,16 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
 
 
-#model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
-#                       num_epochs=10)
-#print("Save model")
-#torch.save(model_ft.state_dict(), "./model_saved.pt")
-print("Hejvdsgdg")
-#torch.load(model_ft.state_dict(), "./model_saved.pt")
-
-#torch.save(model_ft.state_dict(), "./model_saved.pt")
+model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
+                       num_epochs=10)
+print("Save model")
+torch.save(model_ft.state_dict(), "./model_saved.pt")
 
 visualize_model(model_ft)
 
 plt.ioff()
 plt.show()
+
 
 #Export to ONNX
 import torch.onnx
@@ -239,5 +247,5 @@ torch.onnx.export(model_ft,               # model being run
                   input_names = ['input'],   # the model's input names
                   output_names = ['output']) # the model's output names
 
-
+#torch.onnx.export(model, input, opt.output, verbose=True, input_names=input_names, output_names=output_names)
 
