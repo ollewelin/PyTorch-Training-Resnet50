@@ -39,6 +39,9 @@ data_transforms = {
         transforms.Resize(256),
         transforms.CenterCrop(224),
         transforms.RandomHorizontalFlip(),
+        transforms.RandomAffine(degrees=10, scale=(.9, 1.1), shear=0),
+        transforms.RandomPerspective(distortion_scale=0.15),
+        transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
