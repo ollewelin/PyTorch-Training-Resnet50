@@ -2,6 +2,8 @@
 
 ![](cat_door.png)
 
+![](Cat_with_prey.jpg)
+
 ## Related links
 
 ### Trainig on Ubuntu PC with or without GPU PyTorch
