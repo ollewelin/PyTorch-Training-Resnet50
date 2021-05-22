@@ -36,7 +36,7 @@ plt.ion()   # interactive mode
 # Just normalization for validation
 data_transforms = {
     'train': transforms.Compose([
-        transforms.Resize(256),
+        transforms.Resize(232),
         transforms.RandomResizedCrop(224),
         transforms.RandomHorizontalFlip(),
         transforms.RandomAffine(degrees=10, scale=(.9, 1.1), shear=5),
