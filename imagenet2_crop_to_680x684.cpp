@@ -1,44 +1,8 @@
 //******** Things for crop video stream etc *****************
-
 #include <jetson-utils/cudaCrop.h>
 #include <jetson-utils/cudaMappedMemory.h>
 #include <jetson-utils/imageIO.h>
-
-/*
-// load the input image
-uchar3* imgInput = NULL;
-
-int inputWidth = 0;
-int inputHeight = 0;
-
-if( !loadImage("my_image.jpg", &imgInput, &inputWidth, &inputHeight) )
-	return false;
-
-// determine the amount of border pixels (cropping around the center by half)
-const float crop_factor = 0.5;
-const int2  crop_border = make_int2((1.0f - crop_factor) * 0.5f * inputWidth,
-                                    (1.0f - crop_factor) * 0.5f * inputHeight);
-
-// compute the ROI as (left, top, right, bottom)
-const int4 crop_roi = make_int4(crop_border.x, crop_border.y, inputWidth - crop_border.x, inputHeight - crop_border.y);
-
-// allocate the output image, with half the size of the input
-uchar3* imgOutput = NULL;
-
-if( !cudaAllocMapped(&imgOutput, inputWidth * crop_factor, inputHeight * crop_factor) )
-	return false;
-
-// crop the image
-if( CUDA_FAILED(cudaCrop(imgInput, imgOutput, crop_roi, inputWidth, inputHeight)) )
-	return false;
-*/
 //*************************************************************************
-
-
-
-
-
-
 
 #include "videoSource.h"
 #include "videoOutput.h"
@@ -104,14 +68,6 @@ int usage()
 
 int main( int argc, char** argv )
 {
-
-
-
-
-
-
-
-
 
 
     std::ostringstream oss; // open a string for writing EDIT: Fixed from original post
@@ -210,32 +166,11 @@ int main( int argc, char** argv )
 			system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
 
     int pre_class = 0;
-	while( !signal_recieved )
-	{
-		// capture next image image
-		uchar3* image = NULL;
 
-		if( !input->Capture(&image, 1000) )
-		{
-			// check for EOS
-			if( !input->IsStreaming() )
-				break;
-
-			LogError("imagenet:  failed to capture next frame\n");
-			continue;
-		}
-
-
-
-//uchar3* imgInput = NULL;
-
-int inputWidth = input->GetWidth();
-int inputHeight = input->GetHeight();
-
-//if( !loadImage("my_image.jpg", &imgInput, &inputWidth, &inputHeight) )
-//	return false;
-
-// determine the amount of border pixels (cropping around the center by half)
+	if(!signal_recieved){
+        uchar3* image = NULL;
+        int inputWidth = input->GetWidth();
+        int inputHeight = input->GetHeight();
 const float crop_factor_x = 0.53;
 const float crop_factor_y = 0.95;
 
@@ -254,12 +189,22 @@ int crop_height = crop_roi.w -crop_roi.y;
 printf("crop_width = %d\n", crop_width);
 printf("crop_height = %d\n", crop_height);
 
+	while( !signal_recieved )
+	{
+		// capture next image image
 
-// allocate the output image, with half the size of the input
-//uchar3* imgOutput = NULL;
 
-//if( !cudaAllocMapped(&imgOutput, inputWidth * crop_factor, inputHeight * crop_factor) )
-//	return false;
+		if( !input->Capture(&image, 1000) )
+		{
+			// check for EOS
+			if( !input->IsStreaming() )
+				break;
+
+			LogError("imagenet:  failed to capture next frame\n");
+			continue;
+		}
+
+
 
 // crop the image
 if( CUDA_FAILED(cudaCrop(image, image, crop_roi, inputWidth, inputHeight)) )
@@ -397,6 +342,8 @@ if( CUDA_FAILED(cudaCrop(image, image, crop_roi, inputWidth, inputHeight)) )
 		net->PrintProfilerTimes();
 	}
 
+
+	}
 
 	/*
 	 * destroy resources
