@@ -143,14 +143,16 @@ int main( int argc, char** argv )
     //
     const int record_frames_min = 1;
     int record_frame = 0;
-    // const float thresshold = 0.5f;
-    const float thresshold_class_1 = 0.5f;
-    const float thresshold_class_2 = 1.9f;
+    //const float thresshold_class_1 = 0.5f;
+    //const float thresshold_class_2 = 1.9f;
+
+    const float thresshold_class_1 = 1.5f;
+    const float thresshold_class_2 = 4.0f;
     int folder_nr = 0;
     int picture_nr = 0;
 
-    std::string usb_disk_path = "../../../../../media/jetson/1TB-USB/";
-//   std::string usb_disk_path = "./data/";
+    std::string usb_disk_path = "../../../../../media/jetson/USB1-8GB/";//USB1-8GB UBUNTU 18_0   1TB-USB
+    //   std::string usb_disk_path = "./data/";
     std::string pictures_store_path = "pic";
     std::string pictures_store_path_no_prey = "pic_cat_No_prey";
     std::string str_foldernr = "0";
@@ -160,6 +162,25 @@ int main( int argc, char** argv )
     std::string foldername;
 
     std::string pic_file = usb_disk_path;
+
+                            foldername = usb_disk_path + pictures_store_path;
+                            // Creating a directory
+                            char arr[foldername.length()+1];
+                            strcpy(arr,foldername.c_str());
+                            if (mkdir(arr, 0777) == -1)
+                                cerr << "Error :  " << strerror(errno) << endl;
+                            else
+                                cout << "Directory created";
+                            
+                            foldername = usb_disk_path + pictures_store_path_no_prey;
+                            // Creating a directory
+                            arr[foldername.length()+1];
+                            strcpy(arr,foldername.c_str());
+                            if (mkdir(arr, 0777) == -1)
+                                cerr << "Error :  " << strerror(errno) << endl;
+                            else
+                                cout << "Directory created";
+
 
     system("echo 79 > ../../../../../sys/class/gpio/export");
     system("echo out > ../../../../../sys/class/gpio/gpio79/direction");
@@ -219,12 +240,12 @@ int main( int argc, char** argv )
 
             if( img_class >= 0 )
             {
-                LogVerbose("imagenet:  %2.5f%% class #%i (%s)\n", confidence * 100.0f, img_class, net->GetClassDesc(img_class));
+                LogVerbose("imagenet:  %2.5f%% class #%i (%s)\n", confidence * 10.0f, img_class, net->GetClassDesc(img_class));
 
                 if( font != NULL )
                 {
                     char str[256];
-                    sprintf(str, "%05.2f%% %s", confidence * 100.0f, net->GetClassDesc(img_class));
+                    sprintf(str, "%05.2f%% %s", confidence * 10.0f, net->GetClassDesc(img_class));
 
                     font->OverlayText(image, crop_width, crop_height,
                                       str, 5, 5, make_float4(255, 255, 255, 255), make_float4(0, 0, 0, 100));
@@ -236,27 +257,8 @@ int main( int argc, char** argv )
                         printf("Set GPIO pin 79 High\n");
                         system("echo 1 > ../../../../../sys/class/gpio/gpio79/value");
 
-                        if(img_class != pre_class)
-                        {
-                            record_frame=0;
-                        }
-                        pre_class=1;
-                        if(record_frame==0)
-                        {
-                            folder_nr++;
-                            str_foldernr = std::to_string(folder_nr);
-                            foldername = usb_disk_path + pictures_store_path + str_foldernr;
-                            // Creating a directory
-                            char arr[foldername.length()+1];
-                            strcpy(arr,foldername.c_str());
-                            if (mkdir(arr, 0777) == -1)
-                                cerr << "Error :  " << strerror(errno) << endl;
-                            else
-                                cout << "Directory created";
-                        }
-
                         str_framenr = std::to_string(record_frame);
-                        pic_file = foldername + str_slash + str_framenr + str_jpg;
+                        pic_file = usb_disk_path + pictures_store_path + str_slash + str_framenr + str_jpg;
                         printf("Confidence = %f record frame =%d\n", confidence, record_frame);
                         printf("folder_nr = %d\n", folder_nr );
                         printf("store images\n");
@@ -276,28 +278,9 @@ int main( int argc, char** argv )
                         printf("Set GPIO pin 79 Low\n");
                         system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
 
-                        if(img_class != pre_class)
-                        {
-                            record_frame=0;
-                        }
-                        pre_class=2;
-
-                        if(record_frame==0)
-                        {
-                            folder_nr++;
-                            str_foldernr = std::to_string(folder_nr);
-                            foldername = usb_disk_path + pictures_store_path_no_prey + str_foldernr;
-                            // Creating a directory
-                            char arr[foldername.length()+1];
-                            strcpy(arr,foldername.c_str());
-                            if (mkdir(arr, 0777) == -1)
-                                cerr << "Error :  " << strerror(errno) << endl;
-                            else
-                                cout << "Directory created";
-                        }
 
                         str_framenr = std::to_string(record_frame);
-                        pic_file = foldername + str_slash + str_framenr + str_jpg;
+                        pic_file = usb_disk_path + pictures_store_path_no_prey + str_slash + str_framenr + str_jpg;
                         printf("Confidence = %f record frame =%d\n", confidence, record_frame);
                         printf("folder_nr = %d\n", folder_nr );
                         printf("store images\n");
@@ -313,8 +296,7 @@ int main( int argc, char** argv )
                     }
                     else
                     {
-                        record_frame = 0;
-                        printf("Set GPIO pin 79 Low\n");
+                         printf("Set GPIO pin 79 Low\n");
                         system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
                         pre_class=0;
                     }
