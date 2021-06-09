@@ -36,8 +36,8 @@ plt.ion()   # interactive mode
 # Just normalization for validation
 data_transforms = {
     'train': transforms.Compose([
-        transforms.Resize(232),
-        transforms.RandomResizedCrop(224),
+        transforms.Resize(224),
+        transforms.CenterCrop(224),
         transforms.RandomHorizontalFlip(),
         transforms.RandomAffine(degrees=10, scale=(.9, 1.1), shear=5),
         transforms.RandomPerspective(distortion_scale=0.15),
@@ -46,7 +46,7 @@ data_transforms = {
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
     'val': transforms.Compose([
-        transforms.Resize(250),
+        transforms.Resize(224),
         transforms.CenterCrop(224),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])

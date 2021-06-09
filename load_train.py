@@ -39,7 +39,7 @@ plt.ion()   # interactive mode
 data_transforms = {
     'train': transforms.Compose([
         transforms.Resize(232),
-        transforms.RandomResizedCrop(224),
+        transforms.CenterCrop(224),
         transforms.RandomHorizontalFlip(),
         transforms.RandomAffine(degrees=10, scale=(.9, 1.1), shear=5),
         transforms.RandomPerspective(distortion_scale=0.15),
