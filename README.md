@@ -64,7 +64,7 @@ Will collect image if class 1 > thresshold probablility and store on external US
 
     jetson@jetson-desktop:~/jetson-inference$ docker/run.sh --volume /:/olle_test1
     
-    jetson@jetson-desktop:~/jetson-inference$ cd ../olle_test1/jetson-inference/examples/my-recognition
+    jetson@jetson-desktop:~/jetson-inference$ cd ../olle_test1/home/jetson/jetson-inference/examples/my-recognition
 
     root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition# cmake CMakeLists.txt  
     -- The C compiler identification is GNU 7.5.0   
