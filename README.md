@@ -8,6 +8,17 @@
 
 ![](data_loader.png)
 
+### More examples 
+
+Here with outer text in lable.txt
+        
+        class1   = Background
+        class2   = Cat with prey
+        class3   = Cat no prey
+
+![](27.jpg)
+
+
 ## Related links
 
 ### Trainig on Ubuntu PC with or without GPU PyTorch
