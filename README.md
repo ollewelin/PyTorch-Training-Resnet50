@@ -2,7 +2,7 @@
 
 ### More examples 
 
-Here with outer text in lable.txt
+Here with other text in lable.txt
         
         class1   = Background
         class2   = Cat with prey
