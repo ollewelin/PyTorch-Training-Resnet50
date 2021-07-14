@@ -10,7 +10,7 @@ Here with other texts in lable.txt
 
 ![](27.jpg)
 
-### Older examples
+### Older examples with other scale factor on the probablility output text (more then 100 %)
 
 ![](cat_door.png)
 
