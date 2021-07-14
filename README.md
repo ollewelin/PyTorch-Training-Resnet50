@@ -1,13 +1,5 @@
 # PyTorch-Training-Resnet50. AUTO save cat (or other) images on external USB hard drive
 
-![](cat_door.png)
-
-![](Cat_with_prey.jpg)
-
-        $ python load_test_export.py
-
-![](data_loader.png)
-
 ### More examples 
 
 Here with outer text in lable.txt
@@ -18,6 +10,15 @@ Here with outer text in lable.txt
 
 ![](27.jpg)
 
+### Older examples
+
+![](cat_door.png)
+
+![](Cat_with_prey.jpg)
+
+        $ python load_test_export.py
+
+![](data_loader.png)
 
 ## Related links
 
