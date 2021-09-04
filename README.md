@@ -89,9 +89,15 @@ Will collect image if class 1 > thresshold probablility and store on external US
 
 ### Start Docker container comand 
 
+#### Check IP address at Jetson nano module
+
+     jetson@jetson-desktop:~$ ip addr 
+     
+     192.168.1.<xxx>
+
 #### SSH from PC
 
-    olle@olle-TUF-Gaming-FX505DT-FX505DT:~$ ssh jetson@192.168.xx.xx    
+    olle@olle-TUF-Gaming-FX505DT-FX505DT:~$ ssh jetson@192.168.<xxx>.<xxx>    
     
     jetson@jetson-desktop:~$ sudo apt-get update
     
@@ -176,6 +182,11 @@ Will collect image if class 1 > thresshold probablility and store on external US
         Hejvdsgdg
         Export model to ONNX 
         (base) olle@olle-TUF-Gaming-FX505DT-FX505DT:~/PyTorch-Training-Resnet50$ 
+        
+### Copy over the model to Jetson Nano over ethernet 
+
+        $ cp model_saved.onnx model_28.onnx
+        $ scp ~/PyTorch-Training-Resnet50/model_28.onnx jetson@192.168.<xxx>.<xxx>:~/jetson-inference/examples/my-recognition
 
 
 ### Run program (first time TensorRT import the ONNX model)
