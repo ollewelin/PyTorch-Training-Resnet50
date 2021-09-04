@@ -52,7 +52,7 @@ https://github.com/dusty-nv/jetson-inference
 
 ### Start train command
 
-    $ ./python train.py
+    $ python train.py
 
 ### Test result on PC test
 
@@ -153,6 +153,22 @@ Will collect image if class 1 > thresshold probablility and store on external US
     root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition# 
     
 ### Copy over the Inference ONNX model
+
+#### Combine splitted gz file on PC and convert to ONNX
+
+#### On PC, get the splitted model
+
+        olle@olle-TUF-Gaming-FX505DT-FX505DT:~$ git clone https://github.com/ollewelin/PyTorch-Training-Resnet50
+        
+##### Combine splitted files
+
+        olle@olle-TUF-Gaming-FX505DT-FX505DT:~/PyTorch-Training-Resnet50$ cat model_28* > model_28.tar.gz
+        $ gunzip model_28.tar.gz
+        $ cp model_28.tar model_saved.pt
+        $ python load_test_export.py
+        
+        
+        
 
 
 ### Run program (first time TensorRT import the ONNX model)
