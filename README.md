@@ -106,6 +106,8 @@ Will collect image if class 1 > thresshold probablility and store on external US
 ![](Select_resnet_50.png)  
 
 ![](docker_download_resnet50.png)
+
+![](docker_download.png)
     
     jetson@jetson-desktop:~/jetson-inference$ cd ../olle_test1/home/jetson/jetson-inference/examples/my-recognition
 
