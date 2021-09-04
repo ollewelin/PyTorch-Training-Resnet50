@@ -168,7 +168,7 @@ Will collect image if class 1 > thresshold probablility and store on external US
         $ cp model_28.pt model_saved.pt
         $ python load_test_export.py
         
-        
+ ![](load_test_export.png)       
         
 
 
