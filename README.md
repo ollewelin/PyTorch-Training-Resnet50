@@ -62,9 +62,26 @@ Then close the two test windows to export to ONNX model
 
 ![](export_ONNX.png)
 
+## Install Jetson Nano Device
+
+Follow instructions from :
+### Setting up Jetson with JetPack
+
+https://github.com/dusty-nv/jetson-inference/blob/master/docs/jetpack-setup-2.md
+
+#### Getting Started with Jetson Nano Developer Kit
+https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit
+
+Or
+
+#### Getting Started with Jetson Nano 2GB Developer Kit
+https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit
+
+
 ## Run on Jetson Nano
 
 ... to be continue .. not finnish yet
+
 
     imagenet2.cpp 
     
@@ -72,9 +89,23 @@ Will collect image if class 1 > thresshold probablility and store on external US
 
 ### Start Docker container comand 
 
+#### SSH from PC
+
+    olle@olle-TUF-Gaming-FX505DT-FX505DT:~$ ssh jetson@192.168.xx.xx    
+    
+    jetson@jetson-desktop:~$ sudo apt-get update
+    
+    jetson@jetson-desktop:~$ git clone --recursive https://github.com/dusty-nv/jetson-inference
+    
+    jetson@jetson-desktop:~$ git clone https://github.com/ollewelin/PyTorch-Training-Resnet50
+
     jetson@jetson-desktop:~$ cd jetson-inference
 
     jetson@jetson-desktop:~/jetson-inference$ docker/run.sh --volume /:/olle_test1
+    
+![](Select_resnet_50.png)  
+
+![](docker_download_resnet50.png)
     
     jetson@jetson-desktop:~/jetson-inference$ cd ../olle_test1/home/jetson/jetson-inference/examples/my-recognition
 
