@@ -157,12 +157,12 @@ Will collect image if class 1 > thresshold probablility and store on external US
 #### Combine splitted gz file on PC and convert to ONNX
 
 #### On PC, get the splitted model
-
-        olle@olle-TUF-Gaming-FX505DT-FX505DT:~$ git clone https://github.com/ollewelin/PyTorch-Training-Resnet50
+        olle@olle-TUF-Gaming-FX505DT-FX505DT:~$
+        $ git clone https://github.com/ollewelin/PyTorch-Training-Resnet50
         
 ##### Combine splitted files
-
-        olle@olle-TUF-Gaming-FX505DT-FX505DT:~/PyTorch-Training-Resnet50$ cat model_28* > model_28.tar.gz
+        $ cd PyTorch-Training-Resnet50
+        $ cat model_28* > model_28.tar.gz
         $ gunzip model_28.tar.gz
         $ cp model_28.tar model_saved.pt
         $ python load_test_export.py
