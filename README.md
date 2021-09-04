@@ -170,6 +170,12 @@ Will collect image if class 1 > thresshold probablility and store on external US
         
  ![](load_test_export.png)       
         
+ #### Close windows..
+ 
+        (base) olle@olle-TUF-Gaming-FX505DT-FX505DT:~/PyTorch-Training-Resnet50$ python load_test_export.py
+        Hejvdsgdg
+        Export model to ONNX 
+        (base) olle@olle-TUF-Gaming-FX505DT-FX505DT:~/PyTorch-Training-Resnet50$ 
 
 
 ### Run program (first time TensorRT import the ONNX model)
