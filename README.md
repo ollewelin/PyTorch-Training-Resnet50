@@ -189,7 +189,7 @@ Will collect image if class 1 > thresshold probablility and store on external US
         $ scp ~/PyTorch-Training-Resnet50/model_28.onnx jetson@192.168.<xxx>.<xxx>:~/jetson-inference/examples/my-recognition
 
 
-### Run program (first time TensorRT import the ONNX model)
+### Run program (first time TensorRT import the ONNX model) Start On Jetson Target
 
 Cat example model_28.onnx
 
