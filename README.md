@@ -98,6 +98,12 @@ Will collect image if class 1 > thresshold probablility and store on external US
     jetson@jetson-desktop:~$ git clone --recursive https://github.com/dusty-nv/jetson-inference
     
     jetson@jetson-desktop:~$ git clone https://github.com/ollewelin/PyTorch-Training-Resnet50
+    
+    jetson@jetson-desktop:~$ cp ~/PyTorch-Training-Resnet50/labels.txt ~/jetson-inference/examples/my-recognition
+    
+    jetson@jetson-desktop:~$ cp ~/PyTorch-Training-Resnet50/CMakeLists.txt ~/jetson-inference/examples/my-recognition
+    
+    jetson@jetson-desktop:~$ cp ~/PyTorch-Training-Resnet50/imagenet2.cpp ~/jetson-inference/examples/my-recognition
 
     jetson@jetson-desktop:~$ cd jetson-inference
 
@@ -145,6 +151,8 @@ Will collect image if class 1 > thresshold probablility and store on external US
     [100%] Linking CXX executable imagenet2
     [100%] Built target imagenet2
     root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition# 
+    
+### Copy over the Inference ONNX model
 
 
 ### Run program (first time TensorRT import the ONNX model)
