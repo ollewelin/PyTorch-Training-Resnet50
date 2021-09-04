@@ -191,6 +191,12 @@ Will collect image if class 1 > thresshold probablility and store on external US
 
 ### Run program (first time TensorRT import the ONNX model)
 
+Cat example model_28.onnx
+
+       $ root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition#./imagenet2 --model=./model_28.onnx --input_blob=input --output_blob=output --labels=./labels.txt csi://0
+
+Or first example 
+
     root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition#./imagenet2 --model=./resnet50.onnx --input_blob=input --output_blob=output --labels=./labels.txt csi://0
 
 ### Auto save image on external USB disk
