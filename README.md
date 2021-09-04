@@ -164,7 +164,7 @@ Will collect image if class 1 > thresshold probablility and store on external US
         $ cd PyTorch-Training-Resnet50
         $ cat model_28* > model_28.tar.gz
         $ gunzip model_28.tar.gz
-        $ gunzip model_28.tar
+        $ tar -xf model_28.tar
         $ cp model_28.pt model_saved.pt
         $ python load_test_export.py
         
