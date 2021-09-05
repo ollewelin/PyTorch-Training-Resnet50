@@ -11,7 +11,7 @@ include_directories("/olle_test1/home/jetson/jetson-inference/c")
 
 # declare my-recognition project
 project(imagenet2)
-
+project(imagenet3)
 # import jetson-inference and jetson-utils packages.
 # note that if you didn't do "sudo make install"
 # while building jetson-inference, this will error.
@@ -23,6 +23,7 @@ find_package(CUDA)
 
 # compile the my-recognition program
 cuda_add_executable(imagenet2 imagenet2.cpp)
-
+cuda_add_executable(imagenet3 imagenet3.cpp)
 # link my-recognition to jetson-inference library
 target_link_libraries(imagenet2 jetson-inference)
+target_link_libraries(imagenet3 jetson-inference)
