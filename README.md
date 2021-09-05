@@ -158,7 +158,7 @@ Will collect image if class 1 > thresshold probablility and store on external US
     [100%] Built target imagenet2
     root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition# 
     
-### Copy over the Inference ONNX model
+### Copy over the Cat with pray model
 
 #### Combine splitted gz file on PC and convert to ONNX
 
