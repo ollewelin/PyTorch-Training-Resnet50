@@ -164,7 +164,7 @@ Will collect image if class 1 > thresshold probablility and store on external US
 
         $ docker/run.sh --volume /:/olle_test1 -r "bash ../olle_test1/home/jetson/jetson-inference/examples/my-recognition/start.sh"
         
- Or all from bash script 
+ Or all from bash start_script.sh 
  
         $ ~/jetson-inference/examples/my-recognition/bash start_script.sh      
 
