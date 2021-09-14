@@ -157,7 +157,15 @@ Will collect image if class 1 > thresshold probablility and store on external US
     [100%] Linking CXX executable imagenet2
     [100%] Built target imagenet2
     root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition# 
-    
+
+### Or start docker with a start.sh script inside container
+
+        $ cd jetson-inference
+
+        $ docker/run.sh --volume /:/olle_test1 -r "bash ../olle_test1/home/jetson/jetson-inference/examples/my-recognition/start.sh"
+        
+        
+
 ### Copy over the Cat with prey model
 
 #### Combine splitted gz file on PC and convert to ONNX
