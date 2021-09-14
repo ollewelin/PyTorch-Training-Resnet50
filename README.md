@@ -166,7 +166,9 @@ Will collect image if class 1 > thresshold probablility and store on external US
         
  Or all from bash start_script.sh 
  
-        $ ~/jetson-inference/examples/my-recognition/bash start_script.sh      
+        $ cd jetson-inference
+ 
+        $ ~/jetson-inference/bash start_script.sh      
 
 ### Copy over the Cat with prey model
 
