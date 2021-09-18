@@ -1,0 +1,22 @@
+tar -czvf name-of-archive.tar.gz /path/to/directory-or-file
+
+tar -czvf model_28.pt.gz model_28.pt
+
+Here’s what those switches actually mean:
+
+    -c: Create an archive.
+    -z: Compress the archive with gzip.
+    -v: Display progress in the terminal while creating the archive, also known as “verbose” mode. The v is always optional in these commands, but it’s helpful.
+    -f: Allows you to specify the filename of the archive.
+
+Split files
+
+split --help
+
+split -b 8G large.tgz large.tgz.part-
+
+split -b 20M model_28.pt.gz model_28.pt.gz.part-
+
+
+
+
