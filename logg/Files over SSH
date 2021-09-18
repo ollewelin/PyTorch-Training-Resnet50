@@ -1,0 +1,19 @@
+
+Copy files over LAN SSH ubuntu
+
+sudo apt update
+sudo apt install openssh-server
+
+sudo systemctl status ssh
+sudo ufw allow ssh
+
+
+Copy model from PC to Jetson example
+scp ~/pytorch/model_mid_X/model_27.onnx jetson@192.168.1.69:~/jetson-inference/examples/my-recognition
+
+Copy images from jetson to my PC example
+scp -r jetson@192.168.1.69:/media/jetson/USB1-8GB/pic* /media/olle/857a6031-c113-4004-96bb-d970f2739b67/home/tb1olle/olle/mycats
+
+Copy program back and forth from my PC <--> jetson 
+scp jetson@192.168.1.69:~/jetson-inference/examples/my-recognition/imagenet3.cpp ~/olle/jetson/imagenet3.cpp
+scp ~/olle/jetson/imagenet3.cpp jetson@192.168.1.69:~/jetson-inference/examples/my-recognition/imagenet3.cpp
