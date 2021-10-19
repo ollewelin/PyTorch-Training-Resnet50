@@ -1,5 +1,9 @@
 # PyTorch-Training-Resnet50. AUTO save cat (or other) images on external USB hard drive
 
+Auto cat flap example
+
+https://www.youtube.com/watch?v=emWBobbEPwY
+
 ### More examples 
 
 Here with other texts in lable.txt
@@ -80,10 +84,7 @@ https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit
 
 ## Run on Jetson Nano
 
-... to be continue .. not finnish yet
-
-
-    imagenet2.cpp 
+imagenet3.cpp 
     
 Will collect image if class 1 > thresshold probablility and store on external USB hard drive ..
 
@@ -110,6 +111,10 @@ Will collect image if class 1 > thresshold probablility and store on external US
     jetson@jetson-desktop:~$ cp ~/PyTorch-Training-Resnet50/CMakeLists.txt ~/jetson-inference/examples/my-recognition
     
     jetson@jetson-desktop:~$ cp ~/PyTorch-Training-Resnet50/imagenet2.cpp ~/jetson-inference/examples/my-recognition
+    
+    jetson@jetson-desktop:~$ cp ~/PyTorch-Training-Resnet50/imagenet3.cpp ~/jetson-inference/examples/my-recognition
+    
+    jetson@jetson-desktop:~$ cp ~/PyTorch-Training-Resnet50/start.sh ~/jetson-inference/examples/my-recognition
 
     jetson@jetson-desktop:~$ cd jetson-inference
 
