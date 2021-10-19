@@ -143,6 +143,9 @@ int main( int argc, char** argv )
     //
     const int record_frames_min = 1;
     int record_frame = 0;
+    int class_lock_cnt = 0;
+    const int threshold_lock_class_cnt = 3;//1 = lock direct on one frame, 0 not allowed, 
+
     //const float thresshold_class_1 = 0.5f;
     //const float thresshold_class_2 = 1.9f;
 
@@ -241,7 +244,7 @@ int main( int argc, char** argv )
             if( img_class >= 0 )
             {
               //  LogVerbose("imagenet:  %2.5f%% class #%i (%s)\n", confidence * 10.0f, img_class, net->GetClassDesc(img_class));
-
+                
                 if( font != NULL )
                 {
                     char str[256];
@@ -250,11 +253,17 @@ int main( int argc, char** argv )
                     font->OverlayText(image, crop_width, crop_height,
                                       str, 5, 5, make_float4(255, 255, 255, 255), make_float4(0, 0, 0, 100));
 
-                    //   printf("Olle print %s\n", str);
-
+                       //printf("debug print %s\n", str);
+ 
                     if(img_class == 1 && confidence > thresshold_class_1)
                     {
-                     //   printf("Set GPIO pin 79 High\n");
+                        if(class_lock_cnt < threshold_lock_class_cnt-1)
+                        {
+                            class_lock_cnt++;
+                        }
+                        else
+                        {
+                        printf("Set GPIO pin 79 High\n");
                         system("echo 1 > ../../../../../sys/class/gpio/gpio79/value");
 
                         str_framenr = std::to_string(record_frame);
@@ -270,9 +279,20 @@ int main( int argc, char** argv )
                         //saveImage(oss, image, crop_width, crop_height);
 
                         record_frame++;
+                        }
+                    }
+                    else
+                    {
+                        record_frame++;
+                        if(class_lock_cnt > 0)
+                        {
+                            class_lock_cnt--;
+                        }
+                        //class_lock_cnt = 0;
                     }
                     if(img_class == 2 && confidence > thresshold_class_2)
                     {
+                        class_lock_cnt = 0;
                         //No prey
                         //pictures_store_path_no_prey
                      //   printf("Set GPIO pin 79 Low\n");
@@ -289,9 +309,6 @@ int main( int argc, char** argv )
                         char arr[pic_file.length()+1];
                         strcpy(arr,pic_file.c_str());
                         saveImage(arr, image, crop_width, crop_height);
-
-                        record_frame++;
-
 
                     }
                     else
