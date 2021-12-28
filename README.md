@@ -16,6 +16,8 @@ Here with other texts in lable.txt
 
 ![](data/hymenoptera_data/train/Cat1/2021_12_28-_prey-863600.jpg)
 
+![](data/hymenoptera_data/train/Cat2/2021_12_28-no-prey-865635.jpg)
+
 ### Older examples with other scale factor on the probablility output text (more then 100 %)
 
 ![](cat_door.png)
