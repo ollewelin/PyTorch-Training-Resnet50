@@ -14,7 +14,7 @@ Here with other texts in lable.txt
 
 ![](27.jpg)
 
-![](data/train/2021_12_28-_prey-863600.jpg)
+![](data/hymenoptera_data/train/Cat1/2021_12_28-_prey-863600.jpg)
 
 ### Older examples with other scale factor on the probablility output text (more then 100 %)
 
