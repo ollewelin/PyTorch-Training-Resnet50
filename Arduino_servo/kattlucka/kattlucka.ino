@@ -9,7 +9,7 @@ void setup() {
   pinMode(12, INPUT);
   pinMode(13, OUTPUT);
 }
-#define CLOSE_TIME 60 //Example 30 = 60 seconds close time
+#define CLOSE_TIME 90 //Example 30 = 60 seconds close time
 void loop() {
 int blink_timer =0 ;
 int i=0;
