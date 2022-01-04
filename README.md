@@ -4,6 +4,7 @@ Auto cat flap example
 
 https://www.youtube.com/watch?v=emWBobbEPwY
 
+
 ### More examples 
 
 Here with other texts in lable.txt
@@ -29,6 +30,13 @@ Here with other texts in lable.txt
 ![](data_loader.png)
 
 ## Related links
+
+### Installation guide Anaconda for Trainig on Ubuntu PC
+
+Only need to do the installation step 1 to 6
+
+https://github.com/ollewelin/Installing-and-Test-PyTorch-C-API-on-Ubuntu-with-GPU-enabled
+
 
 ### Trainig on Ubuntu PC with or without GPU PyTorch
 
