@@ -133,6 +133,13 @@ Will collect image if class 1 > thresshold probablility and store on external US
 
 ### Start Docker container comand 
 
+#### Check IP address on local network
+
+```
+        $ ifconfig
+        $ arp -a
+```
+
 #### Check IP address at Jetson nano module
 
      jetson@jetson-desktop:~$ ip addr 
