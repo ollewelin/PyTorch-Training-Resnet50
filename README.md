@@ -300,6 +300,8 @@ bash ~/jetson-inference/start_script.sh
 #### Save, Exit and reboot Jetson Nano
 :wq - to save and exit
 ```
+press ESC to set VIM to command mode
+
 :wq
 
 sudo reboot
