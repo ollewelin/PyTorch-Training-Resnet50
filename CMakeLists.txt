@@ -3,11 +3,20 @@
 
 # require CMake 2.8 or greater
 cmake_minimum_required(VERSION 2.8)
+
+#------ Used when inside Docker container ----------
 include_directories("/olle_test1/home/jetson/jetson-inference/utils/image")
 include_directories("/olle_test1/home/jetson/jetson-inference/utils/video")
 include_directories("/olle_test1/home/jetson/jetson-inference/utils/cuda")
 include_directories("/olle_test1/home/jetson/jetson-inference/utils")
 include_directories("/olle_test1/home/jetson/jetson-inference/c")
+#---------------------------------------------------
+
+#======= Used when build directly from source wihtout Docker image =========
+include_directories("~/jetson-inference/build/aarch64/include")
+include_directories("~/jetson-inference/build/aarch64/include/jetson-inference")
+include_directories("~/jetson-inference/build/aarch64/include/jetson-utils")
+#===========================================================================
 
 # declare my-recognition project
 project(imagenet2)
@@ -20,7 +29,8 @@ find_package(jetson-inference)
 
 # CUDA is required
 find_package(CUDA)
-
+# add directory for libnvbuf-utils to program
+link_directories(/usr/lib/aarch64-linux-gnu/tegra)
 # compile the my-recognition program
 cuda_add_executable(imagenet2 imagenet2.cpp)
 cuda_add_executable(imagenet3 imagenet3.cpp)
