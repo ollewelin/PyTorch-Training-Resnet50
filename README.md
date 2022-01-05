@@ -267,7 +267,7 @@ $ sudo ldconfig
 
 SSH From PC side
 ```
-ssh jetson@192.168.1.137
+ssh jetson@192.168.1.xxx
 sudo vim ~/../../etc/profile.d/bash_completion.sh
 ```
 ### Add start_d.sh script at bash_completion.sh with inside Vim editor 
