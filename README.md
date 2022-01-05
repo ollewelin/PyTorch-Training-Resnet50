@@ -265,6 +265,12 @@ $ sudo ldconfig
 
 ## Start Jetson Nano directly after boot
 
+### Enable Auto login Jetson Nano module
+
+Run the “User Accounts” app, then click the “Unlock” button in the top right of the window and enter your sudo password, and then you can enable/disable Automatic Login for your account.
+
+### Edit bash_completion.sh with inside Vim editor from PC SSH
+
 SSH From PC side
 ```
 ssh jetson@192.168.1.xxx
@@ -285,9 +291,13 @@ R
 ```
 bash ~/jetson-inference/examples/my-recognition/start_d.sh
 ```
-#### Save and Exit
+#### Save, Exit and reboot Jetson Nano
 :wq - to save and exit
 ```
 :wq
+
+sudo reboot
 ```
+
+
 
