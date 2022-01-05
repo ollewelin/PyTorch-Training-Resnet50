@@ -242,4 +242,52 @@ Or first example
 
 ![](folder_on_external_USB.png)
 
+# Jetson Nano build from Source and auto start
+
+## Build from source (Instead of using Docker)
+
+Jetson nano Build from source
+
+https://github.com/dusty-nv/jetson-inference/blob/master/docs/building-repo-2.md
+
+```
+$ sudo apt-get update
+$ sudo apt-get install git cmake libpython3-dev python3-numpy
+$ git clone --recursive https://github.com/dusty-nv/jetson-inference
+$ cd jetson-inference
+$ mkdir build
+$ cd build
+$ cmake ../
+$ make -j$(nproc)
+$ sudo make install
+$ sudo ldconfig
+```
+
+## Start Jetson Nano directly after boot
+
+SSH From PC side
+```
+ssh jetson@192.168.1.137
+sudo vim ~/../../etc/profile.d/bash_completion.sh
+```
+### Add start_d.sh script at bash_completion.sh with inside Vim editor 
+Vim guide
+
+https://coderwall.com/p/adv71w/basic-vim-commands-for-getting-started
+
+#### Edit Commands
+R - to replace more than one character
+
+```
+R
+```
+#### Add line 
+```
+bash ~/jetson-inference/examples/my-recognition/start_d.sh
+```
+#### Save and Exit
+:wq - to save and exit
+```
+:wq
+```
 
