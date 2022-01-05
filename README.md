@@ -287,10 +287,16 @@ R - to replace more than one character
 ```
 R
 ```
-#### Add line 
+#### Add line directly from Source (Not Docker)
 ```
 bash ~/jetson-inference/examples/my-recognition/start_d.sh
 ```
+#### Or line Docker use
+```
+bash ~/jetson-inference/start_script.sh
+```
+
+
 #### Save, Exit and reboot Jetson Nano
 :wq - to save and exit
 ```
