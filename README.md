@@ -100,6 +100,37 @@ imagenet3.cpp
     
 Will collect image if class 1 > thresshold probablility and store on external USB hard drive ..
 
+### Copy over the Cat with prey model
+
+#### Combine splitted gz file on PC and convert to ONNX
+
+#### Back on the PC, get the splitted model
+        olle@olle-TUF-Gaming-FX505DT-FX505DT:~$
+        $ git clone https://github.com/ollewelin/PyTorch-Training-Resnet50
+        
+##### Combine splitted files
+        $ cd PyTorch-Training-Resnet50
+        $ cat model_31* > model_31.tar.gz
+        $ gunzip model_31.tar.gz
+        $ tar -xf model_31.tar
+        $ cp model_31.pt model_saved.pt
+        $ python load_test_export.py
+        
+ ![](load_test_export.png)       
+        
+ #### Close windows..
+ 
+        (base) olle@olle-TUF-Gaming-FX505DT-FX505DT:~/PyTorch-Training-Resnet50$ python load_test_export.py
+        Hejvdsgdg
+        Export model to ONNX 
+        (base) olle@olle-TUF-Gaming-FX505DT-FX505DT:~/PyTorch-Training-Resnet50$ 
+        
+### Copy over the model to Jetson Nano over ethernet 
+
+        $ cp model_saved.onnx model_31.onnx
+        $ scp ~/PyTorch-Training-Resnet50/model_28.onnx jetson@192.168.<xxx>.<xxx>:~/jetson-inference/examples/my-recognition
+
+
 ### Start Docker container comand 
 
 #### Check IP address at Jetson nano module
@@ -187,46 +218,17 @@ Will collect image if class 1 > thresshold probablility and store on external US
  
         $ ~/jetson-inference/bash start_script.sh      
 
-### Copy over the Cat with prey model
-
-#### Combine splitted gz file on PC and convert to ONNX
-
-#### Back on the PC, get the splitted model
-        olle@olle-TUF-Gaming-FX505DT-FX505DT:~$
-        $ git clone https://github.com/ollewelin/PyTorch-Training-Resnet50
-        
-##### Combine splitted files
-        $ cd PyTorch-Training-Resnet50
-        $ cat model_28* > model_28.tar.gz
-        $ gunzip model_28.tar.gz
-        $ tar -xf model_28.tar
-        $ cp model_28.pt model_saved.pt
-        $ python load_test_export.py
-        
- ![](load_test_export.png)       
-        
- #### Close windows..
- 
-        (base) olle@olle-TUF-Gaming-FX505DT-FX505DT:~/PyTorch-Training-Resnet50$ python load_test_export.py
-        Hejvdsgdg
-        Export model to ONNX 
-        (base) olle@olle-TUF-Gaming-FX505DT-FX505DT:~/PyTorch-Training-Resnet50$ 
-        
-### Copy over the model to Jetson Nano over ethernet 
-
-        $ cp model_saved.onnx model_28.onnx
-        $ scp ~/PyTorch-Training-Resnet50/model_28.onnx jetson@192.168.<xxx>.<xxx>:~/jetson-inference/examples/my-recognition
 
 
 ### Run program (first time TensorRT import the ONNX model) Start On Jetson Target
 
-Cat example model_28.onnx
+Cat example model_31.onnx
 
-       $ root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition#./imagenet2 --model=./model_28.onnx --input_blob=input --output_blob=output --labels=./labels.txt csi://0
+       $ root@jetson-desktop:/olle_test1/home/jetson/jetson-inference/examples/my-recognition#./imagenet2 --model=./model_31.onnx --input_blob=input --output_blob=output --labels=./labels.txt csi://0
 
 Or less printout's and other thresshold Cat with prey
 
-        $ ./imagenet3 --model=./model_28.onnx --input_blob=input --output_blob=output --labels=./labels.txt csi://0
+        $ ./imagenet3 --model=./model_31.onnx --input_blob=input --output_blob=output --labels=./labels.txt csi://0
 
 Or first example 
 
