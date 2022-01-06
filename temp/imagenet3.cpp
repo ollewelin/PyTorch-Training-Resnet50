@@ -243,41 +243,15 @@ int main( int argc, char** argv )
                 continue;
             }
         
-        /*    
-        uchar3* image_ptr_zero = image;
-        uchar3* image_ptr_index = image;
-        opencv_frame.create(inputHeight, inputWidth, CV_8UC3);
-    
-        for(int i=0;i<inputHeight*inputHeight;i++){
-            //uchar3 test = image_ptr_index*;
-            printf("image_ptr_index* = %d", (int)*image_ptr_index);
-            image_ptr_index++;
-        }
-        //opencv_frame = input->Capture(&image);
-        
-        //opencv_frame.create(inputHeight, inputWidth, CV_8UC3);
-        */
-
-
-
 
 // crop the image
             if( CUDA_FAILED(cudaCrop(image, image, crop_roi, inputWidth, inputHeight)) )
                 return false;
-        //uchar3* img_gpu_src = NULL;
-        //float3* img_gpu_src = NULL;//float3 = IMAGE_RGB32F, float4 = IMAGE_RGBA32F
         void* img_gpu_src = NULL;//float3 = IMAGE_RGB32F
-        //float3* img_cpu_dst = NULL;//float3 = IMAGE_RGB32F
-     //   int width = 0;
-     //   int height = 0;
-    //    if(!loadImage("brown_bear.jpg", &img_gpu_src, &width, &height))
-    //        return false;
         if( !cudaAllocMapped(&img_gpu_src, crop_width, crop_height, IMAGE_RGB32F))
             return false;
         if( CUDA_FAILED(cudaConvertColor(image, IMAGE_RGB8, img_gpu_src, IMAGE_RGB32F, crop_width, crop_height)))
             return false;
-   //     if(CUDA_FAILED(cudaMemcpy(img_cpu_dst, img_gpu_src, crop_width * crop_height * 3, cudaMemcpyDeviceToHost)));
-   //         return false;
         CUDA(cudaDeviceSynchronize());
       
         float3 *host_src;
@@ -286,26 +260,12 @@ int main( int argc, char** argv )
         cudaMemcpy(host_src, img_gpu_src, (sizeof(float3)*crop_width*crop_height), cudaMemcpyDeviceToHost);
       
         // copy over to Mat
-        // ...... To do
-        //float3* temp_array = (float3*)malloc(sizeof(float3));
-        //cudaMemcpyFromSymbol(temp_array, img_gpu_src, sizeof(float3));
-
-        
         opencv_frame.create(crop_height, crop_width, CV_32FC3);
         float *opencv_f_zero_ptr = opencv_frame.ptr<float>(0);
         float *opencv_f_indx_ptr = opencv_frame.ptr<float>(0);
-        //float3 *img_gpu_src_zero_ptr = (float3*)&temp_array[0];
-        //float3 *img_gpu_src_indx_ptr = (float3*)&temp_array[0];
         float3 *img_gpu_src_zero_ptr = (float3*)&host_src[0];
         float3 *img_gpu_src_indx_ptr = (float3*)&host_src[0];
-        
-
-        //int size_of_img_gpu_src = crop_width * crop_height * sizeof(float3)/(sizeof(float));
-       // int size_of_opencv_frame = opencv_frame.cols * opencv_frame.rows * opencv_frame.channels();
        int size_of_opencv_frame = opencv_frame.cols * opencv_frame.rows;
-        printf("sizeof(float3) = %d\n", (int)sizeof(float3));
-
-
         for(int i = 0;i<size_of_opencv_frame ; i++){
 
             
@@ -318,31 +278,14 @@ int main( int argc, char** argv )
             union_data.fl3 = *img_gpu_src_indx_ptr;            
             for(int k=0;k<opencv_frame.channels();k++){
                 opencv_f_indx_ptr = opencv_f_zero_ptr + i*opencv_frame.channels() + k;
-                *opencv_f_indx_ptr = union_data.fl1[k];
-                if(i==300 && k == 0){
-                    printf("Test read pixel 300 = %f ", *opencv_f_indx_ptr);
-                }
-                if(i==300 && k == 1){
-                    printf(", %f", *opencv_f_indx_ptr);
-                }
-                if(i==300 && k == 2){
-                    printf(", %f \n", *opencv_f_indx_ptr);
-                }
-
+                
+                *opencv_f_indx_ptr = union_data.fl1[(k*(-1))+2];//(k*(-1))+2 will flip RGB to BRG, only k = no flip
             }
-            
         }
-        //free(temp_array);
         free(host_src);
         CUDA(cudaFreeHost(img_gpu_src));
-        //CUDA(cudaFreeHost(img_gpu_src));
-        //convert cuda mem
-        //if(CUDA_FAILED(cudaConvertColor())
-        
-        //printf("sizeof(float3) = %d\n", (int)sizeof(float3));
-        printf("opencv_frame rows =%d\n", opencv_frame.rows);
-        printf("opencv_frame cols =%d\n", opencv_frame.cols);
-        //opencv_frame = opencv_frame / 255.0f;
+        //printf("opencv_frame rows =%d\n", opencv_frame.rows);
+        //printf("opencv_frame cols =%d\n", opencv_frame.cols);
         opencv_frame.convertTo(opencv_frame, CV_32FC3, 1.0/255.0);
         cv::imshow("opencv_frame", opencv_frame);
         cv::waitKey(1);
