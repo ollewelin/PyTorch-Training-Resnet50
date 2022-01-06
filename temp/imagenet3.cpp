@@ -316,8 +316,8 @@ int main( int argc, char** argv )
 	    
 	        img_gpu_src_indx_ptr = img_gpu_src_zero_ptr + i;
             union_data.fl3 = *img_gpu_src_indx_ptr;            
-            for(int k=0;k<3;k++){
-                opencv_f_indx_ptr = opencv_f_zero_ptr + i + k;
+            for(int k=0;k<opencv_frame.channels();k++){
+                opencv_f_indx_ptr = opencv_f_zero_ptr + i*opencv_frame.channels() + k;
                 *opencv_f_indx_ptr = union_data.fl1[k];
                 if(i==300 && k == 0){
                     printf("Test read pixel 300 = %f ", *opencv_f_indx_ptr);
@@ -342,6 +342,8 @@ int main( int argc, char** argv )
         //printf("sizeof(float3) = %d\n", (int)sizeof(float3));
         printf("opencv_frame rows =%d\n", opencv_frame.rows);
         printf("opencv_frame cols =%d\n", opencv_frame.cols);
+        //opencv_frame = opencv_frame / 255.0f;
+        opencv_frame.convertTo(opencv_frame, CV_32FC3, 1.0/255.0);
         cv::imshow("opencv_frame", opencv_frame);
         cv::waitKey(1);
 
