@@ -332,6 +332,8 @@ int main( int argc, char** argv )
                         char arr[pic_file.length()+1];
                         strcpy(arr,pic_file.c_str());
                         saveImage(arr, image, crop_width, crop_height);
+                        opencv_frame.convertTo(opencv_frame, CV_8UC3, 255);
+                        cv::imwrite("Test.jpg", opencv_frame);
                         //saveImage(oss, image, crop_width, crop_height);
 
                         record_frame++;
