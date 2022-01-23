@@ -315,7 +315,7 @@ press ESC to set VIM to command mode
 sudo reboot
 ```
 
-#### Install gstreamer on Ubuntu
+#### Install gstreamer on PC Ubuntu
 https://gstreamer.freedesktop.org/documentation/installing/on-linux.html?gi-language=c
 ```
 sudo apt-get update
