@@ -470,13 +470,15 @@ int main(int argc, char **argv)
                 if (opencv_is_initialized == 1)
                 {
                     printf("nr_of_frame_bytes =%d\n", nr_of_frame_bytes);
-                    pthread_mutex_trylock(mut2);
-                    for (int i = 0; i < nr_of_frame_bytes; i++)
+                    if (pthread_mutex_trylock(mut2) == 0)
                     {
-                        opencv_uint8t_indx_ptr = opencv_uint8t_zero_ptr + i;
-                        soc_server_obj->socket_send[i] = *opencv_uint8t_indx_ptr;
+                        for (int i = 0; i < nr_of_frame_bytes; i++)
+                        {
+                            opencv_uint8t_indx_ptr = opencv_uint8t_zero_ptr + i;
+                            soc_server_obj->socket_send[i] = *opencv_uint8t_indx_ptr;
+                        }
+                        pthread_mutex_unlock(mut2);
                     }
-                    pthread_mutex_unlock(mut2);
                 }
             }
             //End nn loop

@@ -196,58 +196,59 @@ void socket_server::Thread(void)
     while (1)
     {
         printf("Thread loop\n");
-        //   int error = 0;
-        //   int retval = 0;
-        //   socklen_t len = sizeof (error);
-        //   retval = getsockopt(client_sock, SOL_SOCKET, SO_ERROR, &error, &len);
-        int check_rd_timeout = readable_timeo(client_sock, 2);
-        if (check_rd_timeout > 0)
-        {
-            rd_bytes = read(client_sock, reply_message, REPLY_DATA_SIZE);
-        }
-        else
-        {
-            if (check_rd_timeout == 0)
-            {
-                printf("Recieve socket tiemout ====  rd timeout   ============================= \n");
-            }
-            if (check_rd_timeout == -1)
-            {
-                printf("Recieve socket tiemout E ====  rd timeout ERROR  ============================= \n");
-            }
-        }
 
-        pthread_mutex_lock(mut_);
-        for (int i = 0; i < nr_of_rec_ints; i++)
+        if (pthread_mutex_trylock(mut_) == 0)
         {
-            int size_int = sizeof(union_d_int_u8.int_data);
-            for (int k = 0; k < size_int; k++)
+            //   int error = 0;
+            //   int retval = 0;
+            //   socklen_t len = sizeof (error);
+            //   retval = getsockopt(client_sock, SOL_SOCKET, SO_ERROR, &error, &len);
+            int check_rd_timeout = readable_timeo(client_sock, 2);
+            if (check_rd_timeout > 0)
             {
-                union_d_int_u8.uint8t_data[k] = reply_message[(i * size_int) + k];
+                rd_bytes = read(client_sock, reply_message, REPLY_DATA_SIZE);
             }
-            socket_receive_int[(i / size_int)] = union_d_int_u8.int_data;
-        }
-        pthread_mutex_unlock(mut_);
-
-        for (int i = 0; i < nr_of_rec_ints; i++)
-        {
-            printf("socket_receive_int[%d] = %d\n", i, socket_receive_int[i]);
-        }
-        pthread_mutex_lock(mut_);
-        socket_send_size = socket_send.size();
-        if (socket_send_size >= SOCKET_IMG_DATA_SIZE)
-        {
-            for (int i = 0; i < SOCKET_IMG_DATA_SIZE; i++)
+            else
             {
-                //TODO
-                client_message[i] = socket_send[i];
+                if (check_rd_timeout == 0)
+                {
+                    printf("Recieve socket tiemout ====  rd timeout   ============================= \n");
+                }
+                if (check_rd_timeout == -1)
+                {
+                    printf("Recieve socket tiemout E ====  rd timeout ERROR  ============================= \n");
+                }
             }
-        }
-        pthread_mutex_unlock(mut_);
-        //int check_wr_timeout = writeable_timeo(client_sock, 10);
-        wr_bytes = write(client_sock, client_message, SOCKET_IMG_DATA_SIZE);
 
-        /*
+            for (int i = 0; i < nr_of_rec_ints; i++)
+            {
+                int size_int = sizeof(union_d_int_u8.int_data);
+                for (int k = 0; k < size_int; k++)
+                {
+                    union_d_int_u8.uint8t_data[k] = reply_message[(i * size_int) + k];
+                }
+                socket_receive_int[(i / size_int)] = union_d_int_u8.int_data;
+            }
+
+            for (int i = 0; i < nr_of_rec_ints; i++)
+            {
+                printf("socket_receive_int[%d] = %d\n", i, socket_receive_int[i]);
+            }
+
+            socket_send_size = socket_send.size();
+            if (socket_send_size >= SOCKET_IMG_DATA_SIZE)
+            {
+                for (int i = 0; i < SOCKET_IMG_DATA_SIZE; i++)
+                {
+                    //TODO
+                    client_message[i] = socket_send[i];
+                }
+            }
+
+            //int check_wr_timeout = writeable_timeo(client_sock, 10);
+            wr_bytes = write(client_sock, client_message, SOCKET_IMG_DATA_SIZE);
+
+            /*
        //  check_wr_timeout = 1;
         if( check_wr_timeout > 0){
 
@@ -261,15 +262,16 @@ void socket_server::Thread(void)
             }
         }*/
 
-        printf("Send x bytes. wr_bytes =%d\n", wr_bytes);
+            printf("Send x bytes. wr_bytes =%d\n", wr_bytes);
 
-        //usleep(100000);//Sleep inside this thread.
+            //usleep(100000);//Sleep inside this thread.
+            pthread_mutex_unlock(mut_);
+        }
     }
     close(client_sock);
 }
 void socket_server::debug(void)
 {
-
 }
 
 bool socket_server::Start(void)
