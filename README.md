@@ -294,10 +294,11 @@ R - to replace more than one character
 ```
 R
 ```
-#### Add line directly from Source (Not Docker)
+#### Add line directly from Source (Not Docker) With streaming to explicitly IP number on LAN
 ```
-bash ~/jetson-inference/examples/my-recognition/start_d.sh
+bash ~/jetson-inference/examples/my-recognition/start_rtp.sh
 ```
+
 #### Or line Docker use
 ```
 bash ~/jetson-inference/start_script.sh
@@ -312,6 +313,10 @@ press ESC to set VIM to command mode
 :wq
 
 sudo reboot
+```
+#### Start gstreamer video view on PC 
+```
+gst-launch-1.0 -v udpsrc port=1234  caps = "application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H264, payload=(int)96" !  rtph264depay ! decodebin ! videoconvert ! autovideosink
 ```
 
 
