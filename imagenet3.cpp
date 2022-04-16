@@ -197,7 +197,8 @@ int main( int argc, char** argv )
         int inputWidth = input->GetWidth();
         int inputHeight = input->GetHeight();
         const float crop_factor_x = 0.53;
-        const float crop_factor_y = 0.95;
+        //const float crop_factor_y = 0.95;
+        const float crop_factor_y = 0.80;
 
         const int2  crop_border = make_int2((1.0f - crop_factor_x) * 0.5f * inputWidth,
                                             (1.0f - crop_factor_y) * 0.5f * inputHeight);
