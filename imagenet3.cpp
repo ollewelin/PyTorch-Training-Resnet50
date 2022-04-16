@@ -283,8 +283,7 @@ int main( int argc, char** argv )
                     }
                     else
                     {
-                        record_frame++;
-                        if(class_lock_cnt > 0)
+                         if(class_lock_cnt > 0)
                         {
                             class_lock_cnt--;
                         }
@@ -309,7 +308,7 @@ int main( int argc, char** argv )
                         char arr[pic_file.length()+1];
                         strcpy(arr,pic_file.c_str());
                         saveImage(arr, image, crop_width, crop_height);
-
+                        record_frame++;
                     }
                     else
                     {
