@@ -10,14 +10,23 @@ void setup() {
   pinMode(13, OUTPUT);
 }
 #define CLOSE_TIME 90 //Example 30 = 60 seconds close time
+
+
 void loop() {
 int blink_timer =0 ;
+int state_close = 1;
 int i=0;
   while(1)
   {
     if(digitalRead(12)==HIGH){
       //Close cat flap servo 10 minutes
+      //Move servo back and forth a little bit to reduce hum sound if mechanic are sticky  
+      myservo.write(135);
+      delay(1000);
       myservo.write(130);
+ //     delay(1000);
+ //     myservo.write(130);
+      state_close = 1;
       digitalWrite(13, HIGH);
       for(i=0;i<CLOSE_TIME;i++) {
         digitalWrite(13, LOW);
@@ -28,7 +37,17 @@ int i=0;
     }
     else
     {
+      if(state_close == 1)
+      {
+        //Move servo back and forth a little bit to reduce hum sound if mechanic are sticky      
+        myservo.write(25);
+        delay(1000);
+     //   myservo.write(33);
+     //   delay(1000);
+      }
+      
       myservo.write(30);
+      state_close = 0;
       blink_timer++;
       if(blink_timer > 3000){
         blink_timer =0;
