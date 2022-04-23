@@ -15,6 +15,18 @@ Here with other texts in lable.txt
 
 ![](27.jpg)
 
+### Stereo view vith mirror 3D input 
+
+![](data/hymenoptera_data/train/Cat2/2022-04-23-30.jpg)
+
+### New installation
+
+![](overview.jpg)
+
+![](overview_open.jpg)
+
+![](Camera_install.jpg)
+
 ![](data/hymenoptera_data/train/Cat1/2021_12_28-_prey-863600.jpg)
 
 ![](data/hymenoptera_data/train/Cat2/2021_12_28-no-prey-865635.jpg)
