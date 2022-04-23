@@ -15,7 +15,7 @@ Here with other texts in lable.txt
 
 ![](27.jpg)
 
-### Stereo view vith mirror 3D input 
+### Stereo view with mirrors 3D input 
 
 ![](data/hymenoptera_data/train/Cat2/2022-04-23-30.jpg)
 
