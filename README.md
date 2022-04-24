@@ -17,7 +17,7 @@ Here with other texts in lable.txt
 
 ![](27.jpg)
 
-### Stereo view with mirrors 3D input 
+### New cat flap (updated 2022-04-24) Stereo view 3D input with tunnel of mirrors.
 
 ![](data/hymenoptera_data/train/Cat2/2022-04-23-26.jpg)
 
