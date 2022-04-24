@@ -22,7 +22,7 @@ int i=0;
       //Close cat flap servo 10 minutes
       //Move servo back and forth a little bit to reduce hum sound if mechanic are sticky  
       myservo.write(135);
-      delay(1000);
+      delay(2500);
       myservo.write(130);
  //     delay(1000);
  //     myservo.write(130);
@@ -40,13 +40,21 @@ int i=0;
       if(state_close == 1)
       {
         //Move servo back and forth a little bit to reduce hum sound if mechanic are sticky      
-        myservo.write(25);
+        myservo.write(20);
+        delay(3000);
+        myservo.write(40);
         delay(1000);
+        myservo.write(30);
+        delay(1000);
+        myservo.write(35);
+        delay(1000);
+        
+
      //   myservo.write(33);
      //   delay(1000);
       }
       
-      myservo.write(30);
+      myservo.write(33);
       state_close = 0;
       blink_timer++;
       if(blink_timer > 3000){
