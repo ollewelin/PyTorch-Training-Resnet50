@@ -1,6 +1,8 @@
 # PyTorch-Training-Resnet50. AUTO save cat (or other) images on external USB hard drive
 
-Auto cat flap example
+Youtube Auto cat flap examples
+
+https://www.youtube.com/watch?v=VDU2EMxDElc&t=34s
 
 https://www.youtube.com/watch?v=emWBobbEPwY
 
