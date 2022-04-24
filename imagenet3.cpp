@@ -144,13 +144,17 @@ int main( int argc, char** argv )
     const int record_frames_min = 1;
     int record_frame = 0;
     int class_lock_cnt = 0;
-    const int threshold_lock_class_cnt = 3;//1 = lock direct on one frame, 0 not allowed, 
+    //const int threshold_lock_class_cnt = 3;//1 = lock direct on one frame, 0 not allowed, 
+    const int threshold_lock_class_cnt = 2;//1 = lock direct on one frame, 0 not allowed, 
 
     //const float thresshold_class_1 = 0.5f;
     //const float thresshold_class_2 = 1.9f;
 
-    const float thresshold_class_1 = 4.0f;
-    const float thresshold_class_2 = 4.0f;
+//    const float thresshold_class_1 = 4.0f;
+//    const float thresshold_class_2 = 4.0f;
+    const float thresshold_class_1 = 3.5f;
+    const float thresshold_class_2 = 3.0f;
+
     int folder_nr = 0;
     int picture_nr = 0;
 
@@ -196,9 +200,13 @@ int main( int argc, char** argv )
         uchar3* image = NULL;
         int inputWidth = input->GetWidth();
         int inputHeight = input->GetHeight();
-        const float crop_factor_x = 0.53;
+        //const float crop_factor_x = 0.53;
+	//const float crop_factor_x = 1.0;
+	
         //const float crop_factor_y = 0.95;
-        const float crop_factor_y = 0.80;
+	//const float crop_factor_y = 0.80;
+	const float crop_factor_x = 0.53;
+	const float crop_factor_y = 1.0;
 
         const int2  crop_border = make_int2((1.0f - crop_factor_x) * 0.5f * inputWidth,
                                             (1.0f - crop_factor_y) * 0.5f * inputHeight);
@@ -297,6 +305,8 @@ int main( int argc, char** argv )
                         //pictures_store_path_no_prey
                      //   printf("Set GPIO pin 79 Low\n");
                         system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
+                     //   printf("Set GPIO pin 50 Low\n");
+                        system("echo 0 > ../../../../../sys/class/gpio/gpio50/value");
 
 
                         str_framenr = std::to_string(record_frame);
@@ -315,7 +325,7 @@ int main( int argc, char** argv )
                     {
                    //      printf("Set GPIO pin 79 Low\n");
                         system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
-                        pre_class=0;
+                   //      printf("Set GPIO pin 50 Low\n");
                     }
 
 
