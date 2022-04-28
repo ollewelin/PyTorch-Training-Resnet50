@@ -152,8 +152,8 @@ int main( int argc, char** argv )
 
 //    const float thresshold_class_1 = 4.0f;
 //    const float thresshold_class_2 = 4.0f;
-    const float thresshold_class_1 = 3.5f;
-    const float thresshold_class_2 = 3.0f;
+    const float thresshold_class_1 = 5.0f;
+    const float thresshold_class_2 = 4.0f;
 
     int folder_nr = 0;
     int picture_nr = 0;
