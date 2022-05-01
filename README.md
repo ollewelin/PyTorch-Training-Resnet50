@@ -21,6 +21,10 @@ Here with other texts in lable.txt
 
 ![](data/hymenoptera_data/train/Cat2/2022-04-23-26.jpg)
 
+![](data/hymenoptera_data/train/Cat1/38_kezo_with_mouse_fast.jpg)
+
+![](data/hymenoptera_data/train/Cat1/148_2022-05-01_strossel_with_prey.jpg)
+
 ![](data/hymenoptera_data/train/Cat2/2022-04-23-30.jpg)
 
 
@@ -33,8 +37,6 @@ Here with other texts in lable.txt
 ![](Camera_install.jpg)
 
 ![](data/hymenoptera_data/train/Cat1/2021_12_28-_prey-863600.jpg)
-
-![](data/hymenoptera_data/train/Cat1/148_2022-05-01_strossel_with_prey.jpg)
 
 ![](data/hymenoptera_data/train/Cat2/2021_12_28-no-prey-865635.jpg)
 
