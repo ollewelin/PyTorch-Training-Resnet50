@@ -165,7 +165,7 @@ int main( int argc, char** argv )
     std::string str_foldernr = "0";
     std::string str_slash = "/";
     std::string str_framenr = "0";
-    std::string str_jpg = ".jpg";
+    std::string str_jpg = "_" + getCurrentDate() + ".jpg";
     std::string foldername;
 
     std::string pic_file = usb_disk_path;
