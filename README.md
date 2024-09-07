@@ -136,6 +136,9 @@ Will collect image if class 1 > thresshold probablility and store on external US
         $ tar -xf model_31.tar
         $ cp model_31.pt model_saved.pt
         $ python load_test_export.py
+
+##### Split files
+        $ split -b 20M model_saved.pt model_saved_part_
         
  ![](load_test_export.png)       
         
