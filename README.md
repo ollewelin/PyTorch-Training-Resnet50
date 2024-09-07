@@ -346,7 +346,7 @@ sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgst
 ```
 gst-launch-1.0 -v udpsrc port=1234  caps = "application/x-rtp, media=(string)video, clock-rate=(int)90000, encoding-name=(string)H264, payload=(int)96" !  rtph264depay ! decodebin ! videoconvert ! autovideosink
 ```
-#### Auto restart jetson-nano application
+#### Auto restart jetson-nano application ever day at 12:00
 ```
 crontab -e
 0 12 * * * /home/jetson/jetson-inference/examples/my-recognition/restart_app.sh
