@@ -131,11 +131,7 @@ Will collect image if class 1 > thresshold probablility and store on external US
         
 ##### Combine splitted files
         $ cd PyTorch-Training-Resnet50
-        $ cat model_31* > model_31.tar.gz
-        $ gunzip model_31.tar.gz
-        $ tar -xf model_31.tar
-        $ cp model_31.pt model_saved.pt
-        $ python load_test_export.py
+        $ cat ./model_42/model_42_part_* > model_saved.pt
 
 ##### Split files
         $ split -b 20M model_saved.pt model_saved_part_
