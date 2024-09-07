@@ -23,6 +23,7 @@ include_directories("~/jetson-inference/build/aarch64/include/jetson-utils")
 # declare my-recognition project
 project(imagenet2)
 project(imagenet3)
+project(imagenet4)
 
 if(MSVC)
     message(STATUS "MSVC DEFINED")
@@ -59,7 +60,10 @@ link_directories(/usr/lib/aarch64-linux-gnu/tegra)
 # compile the my-recognition program
 cuda_add_executable(imagenet2 imagenet2.cpp)
 cuda_add_executable(imagenet3 imagenet3.cpp)
+cuda_add_executable(imagenet4 imagenet4.cpp)
 # link my-recognition to jetson-inference library
 target_link_libraries(imagenet2 jetson-inference)
 target_link_libraries(imagenet3 jetson-inference)
 target_link_libraries(imagenet3 ${OpenCV_LIBS})
+target_link_libraries(imagenet4 jetson-inference)
+target_link_libraries(imagenet4 ${OpenCV_LIBS})
