@@ -351,6 +351,8 @@ gst-launch-1.0 -v udpsrc port=1234  caps = "application/x-rtp, media=(string)vid
 crontab -e
 0 12 * * * /path/to/restart_app.sh
 crontab -l
+sudo service cron start
+sudo service cron restart
 ```
 
 
