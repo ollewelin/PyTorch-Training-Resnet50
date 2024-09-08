@@ -358,15 +358,14 @@ grep CRON /var/log/syslog
 ```
 
 ### Set up Jetson nano Headless mode without HDMI display attached
-´´´
+
+```
 sudo apt-get install usbmount
 sudo reboot
 lsusb
-
 sudo mount /dev/sdX1 /mnt
+```
 
-
-´´´
 ### Step 1: Create a udev Rule
 #### Find the UUID of your USB stick:
 #### Run the following command to get the UUID:
