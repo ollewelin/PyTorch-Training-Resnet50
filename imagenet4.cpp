@@ -157,7 +157,7 @@ int main( int argc, char** argv )
     int folder_nr = 0;
     int picture_nr = 0;
 
-    std::string usb_disk_path = "../../../../../media/jetson/USB1-8GB/";//USB1-8GB UBUNTU 18_0   1TB-USB
+    std::string usb_disk_path = "/media/jetson/USB1-8GB/";//USB1-8GB UBUNTU 18_0   1TB-USB
     //std::string pictures_store_path = "pic";
     std::string pictures_store_path = "pic_" + getCurrentDate();
     //std::string pictures_store_path_no_prey = "pic_cat_No_prey";
@@ -189,9 +189,9 @@ int main( int argc, char** argv )
                                 cout << "Directory created";
 
 
-    system("echo 79 > ../../../../../sys/class/gpio/export");
-    system("echo out > ../../../../../sys/class/gpio/gpio79/direction");
-    system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
+    system("echo 79 > /sys/class/gpio/export");
+    system("echo out > /sys/class/gpio/gpio79/direction");
+    system("echo 0 > /sys/class/gpio/gpio79/value");
 
     int pre_class = 0;
 
@@ -260,7 +260,7 @@ int main( int argc, char** argv )
                         else
                         {
                         printf("Set GPIO pin 79 High\n");
-                        system("echo 1 > ../../../../../sys/class/gpio/gpio79/value");
+                        system("echo 1 > /sys/class/gpio/gpio79/value");
 
                         str_framenr = std::to_string(record_frame);
                         pic_file = usb_disk_path + pictures_store_path + str_slash + str_framenr + str_jpg;
@@ -285,8 +285,8 @@ int main( int argc, char** argv )
                     {
                         class_lock_cnt = 0;
                         //No prey
-                        system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
-                        system("echo 0 > ../../../../../sys/class/gpio/gpio50/value");
+                        system("echo 0 > /sys/class/gpio/gpio79/value");
+                        system("echo 0 > /sys/class/gpio/gpio50/value");
                         str_framenr = std::to_string(record_frame);
                         pic_file = usb_disk_path + pictures_store_path_no_prey + str_slash + str_framenr + str_jpg;
                         char arr[pic_file.length()+1];
@@ -297,7 +297,7 @@ int main( int argc, char** argv )
                     else
                     {
                    //      printf("Set GPIO pin 79 Low\n");
-                        system("echo 0 > ../../../../../sys/class/gpio/gpio79/value");
+                        system("echo 0 > /sys/class/gpio/gpio79/value");
                    //      printf("Set GPIO pin 50 Low\n");
                     }
 
