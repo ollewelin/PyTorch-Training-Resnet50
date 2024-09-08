@@ -356,33 +356,3 @@ sudo service cron restart
 grep CRON /var/log/syslog
 
 ```
-
-### Set up Jetson nano Headless mode without HDMI display attached
-
-```
-sudo apt-get install usbmount
-sudo reboot
-lsusb
-sudo mount /dev/sdX1 /mnt
-```
-
-### Step 1: Create a udev Rule
-#### Find the UUID of your USB stick:
-#### Run the following command to get the UUID:
-
-```
-sudo blkid
-sudo nano /etc/udev/rules.d/99-usb-mount.rules
-sudo nano /etc/fstab
-"ADD line"
-UUID=UUID /media/jetson/USB1-8GB auto defaults,nofail 0 0
-sudo mkdir -p /media/jetson/USB1-8GB
-sudo reboot
-```
-
-#### Check that /media/jetson/USB1-8GB exist without HDMI display
-
-```
-ls /media/jetson/USB1-8GB
-```
-
