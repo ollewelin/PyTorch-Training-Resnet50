@@ -9,4 +9,4 @@ sleep 5
 
 # Start the application
 cd ~/jetson-inference/examples/my-recognition
-./imagenet4 --model=./model_42.onnx --input_blob=input --output_blob=output --labels=./labels.txt csi://0
+./imagenet4 --model=./model_46.onnx --input_blob=input --output_blob=output --labels=./labels.txt csi://0
