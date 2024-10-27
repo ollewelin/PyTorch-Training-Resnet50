@@ -12,14 +12,13 @@
 
 #include <signal.h>
 
-#include <jetson-utils/imageIO.h>//same as #include <jetson-utils/loadImage.h>
+#include <jetson-utils/imageIO.h> //same as #include <jetson-utils/loadImage.h>
 
 #ifdef HEADLESS
-#define IS_HEADLESS() "headless"	// run without display
+#define IS_HEADLESS() "headless" // run without display
 #else
-#define IS_HEADLESS() (const char*)NULL
+#define IS_HEADLESS() (const char *)NULL
 #endif
-
 
 #include <iostream>
 #include <fstream>
@@ -31,8 +30,8 @@
 #include <iostream>
 #include <sys/stat.h>
 #include <sys/types.h>
-//#include <opencv2/opencv.hpp>
-//#include <opencv2/core/core.hpp> // Basic OpenCV structures (cv::Mat, Scalar)
+// #include <opencv2/opencv.hpp>
+// #include <opencv2/core/core.hpp> // Basic OpenCV structures (cv::Mat, Scalar)
 
 #include <vector>
 #include <ctime>
@@ -42,7 +41,7 @@ bool signal_recieved = false;
 
 void sig_handler(int signo)
 {
-    if( signo == SIGINT )
+    if (signo == SIGINT)
     {
         LogVerbose("received SIGINT\n");
         signal_recieved = true;
@@ -67,7 +66,8 @@ int usage()
     return 0;
 }
 
-std::string getCurrentDate() {
+std::string getCurrentDate()
+{
     time_t now = time(0);
     tm *ltm = localtime(&now);
     char date[11];
@@ -75,70 +75,62 @@ std::string getCurrentDate() {
     return std::string(date);
 }
 
-int main( int argc, char** argv )
+int main(int argc, char **argv)
 {
 
-
-
-    const int img_buff_nr = 10;//Store in RAM first before save on disk
+    const int img_buff_nr = 10; // Store in RAM first before save on disk
     std::vector<uchar3> imgBuff;
     printf("======== OLLE WELIN Test 1 ============");
     commandLine cmdLine(argc, argv, IS_HEADLESS());
-    if( cmdLine.GetFlag("help") )
+    if (cmdLine.GetFlag("help"))
         return usage();
-
 
     /*
      * attach signal handler
      */
-    if( signal(SIGINT, sig_handler) == SIG_ERR )
+    if (signal(SIGINT, sig_handler) == SIG_ERR)
         LogError("can't catch SIGINT\n");
-
 
     /*
      * create input stream
      */
-    videoSource* input = videoSource::Create(cmdLine, ARG_POSITION(0));
+    videoSource *input = videoSource::Create(cmdLine, ARG_POSITION(0));
 
-    if( !input )
+    if (!input)
     {
         LogError("imagenet:  failed to create input stream\n");
         return 0;
     }
 
-
     /*
      * create output stream
      */
-    videoOutput* output = videoOutput::Create(cmdLine, ARG_POSITION(1));
+    videoOutput *output = videoOutput::Create(cmdLine, ARG_POSITION(1));
 
-    if( !output )
+    if (!output)
         LogError("imagenet:  failed to create output stream\n");
-
 
     /*
      * create font for image overlay
      */
-    cudaFont* font = cudaFont::Create();
+    cudaFont *font = cudaFont::Create();
 
-    if( !font )
+    if (!font)
     {
         LogError("imagenet:  failed to load font for overlay\n");
         return 0;
     }
 
-
     /*
      * create recognition network
      */
-    imageNet* net = imageNet::Create(cmdLine);
+    imageNet *net = imageNet::Create(cmdLine);
 
-    if( !net )
+    if (!net)
     {
         LogError("imagenet:  failed to initialize imageNet\n");
         return 0;
     }
-
 
     /*
      * processing loop
@@ -148,8 +140,8 @@ int main( int argc, char** argv )
     const int record_frames_min = 1;
     int record_frame = 0;
     int class_lock_cnt = 0;
-    //const int threshold_lock_class_cnt = 3;//1 = lock direct on one frame, 0 not allowed, 
-    const int threshold_lock_class_cnt = 2;//1 = lock direct on one frame, 0 not allowed, 
+    // const int threshold_lock_class_cnt = 3;//1 = lock direct on one frame, 0 not allowed,
+    const int threshold_lock_class_cnt = 2; // 1 = lock direct on one frame, 0 not allowed,
 
     const float thresshold_class_1 = 5.0f;
     const float thresshold_class_2 = 4.0f;
@@ -157,11 +149,12 @@ int main( int argc, char** argv )
     int folder_nr = 0;
     int picture_nr = 0;
 
-    std::string usb_disk_path = "/media/jetson/USB1-8GB/";//USB1-8GB UBUNTU 18_0   1TB-USB
-    //std::string pictures_store_path = "pic";
+    std::string usb_disk_path = "/media/jetson/USB1-8GB/"; // USB1-8GB UBUNTU 18_0   1TB-USB
+    // std::string pictures_store_path = "pic";
     std::string pictures_store_path = "pic_" + getCurrentDate();
-    //std::string pictures_store_path_no_prey = "pic_cat_No_prey";
+    // std::string pictures_store_path_no_prey = "pic_cat_No_prey";
     std::string pictures_store_path_no_prey = "pic_cat_No_prey_" + getCurrentDate();
+    std::string pictures_store_background = "Background_image_each_houer_" + getCurrentDate();
     std::string str_foldernr = "0";
     std::string str_slash = "/";
     std::string str_framenr = "0";
@@ -170,24 +163,32 @@ int main( int argc, char** argv )
 
     std::string pic_file = usb_disk_path;
 
-                            foldername = usb_disk_path + pictures_store_path;
-                            // Creating a directory
-                            char arr[foldername.length()+1];
-                            strcpy(arr,foldername.c_str());
-                            if (mkdir(arr, 0777) == -1)
-                                cerr << "Error :  " << strerror(errno) << endl;
-                            else
-                                cout << "Directory created";
-                            
-                            foldername = usb_disk_path + pictures_store_path_no_prey;
-                            // Creating a directory
-                            arr[foldername.length()+1];
-                            strcpy(arr,foldername.c_str());
-                            if (mkdir(arr, 0777) == -1)
-                                cerr << "Error :  " << strerror(errno) << endl;
-                            else
-                                cout << "Directory created";
+    foldername = usb_disk_path + pictures_store_path;
+    // Creating a directory
+    char arr[foldername.length() + 1];
+    strcpy(arr, foldername.c_str());
+    if (mkdir(arr, 0777) == -1)
+        cerr << "Error :  " << strerror(errno) << endl;
+    else
+        cout << "Directory created";
 
+    foldername = usb_disk_path + pictures_store_path_no_prey;
+    // Creating a directory
+    arr[foldername.length() + 1];
+    strcpy(arr, foldername.c_str());
+    if (mkdir(arr, 0777) == -1)
+        cerr << "Error :  " << strerror(errno) << endl;
+    else
+        cout << "Directory created";
+
+    foldername = usb_disk_path + pictures_store_background;
+    // Creating a directory
+    arr[foldername.length() + 1];
+    strcpy(arr, foldername.c_str());
+    if (mkdir(arr, 0777) == -1)
+        cerr << "Error :  " << strerror(errno) << endl;
+    else
+        cout << "Directory created";
 
     system("echo 79 > /sys/class/gpio/export");
     system("echo out > /sys/class/gpio/gpio79/direction");
@@ -195,18 +196,18 @@ int main( int argc, char** argv )
 
     int pre_class = 0;
 
-    if(!signal_recieved)
+    if (!signal_recieved)
     {
-        uchar3* image = NULL;
+        uchar3 *image = NULL;
         int inputWidth = input->GetWidth();
         int inputHeight = input->GetHeight();
-	const float crop_factor_x = 0.53;
-	const float crop_factor_y = 1.0;
+        const float crop_factor_x = 0.53;
+        const float crop_factor_y = 1.0;
 
-        const int2  crop_border = make_int2((1.0f - crop_factor_x) * 0.5f * inputWidth,
-                                            (1.0f - crop_factor_y) * 0.5f * inputHeight);
+        const int2 crop_border = make_int2((1.0f - crop_factor_x) * 0.5f * inputWidth,
+                                           (1.0f - crop_factor_y) * 0.5f * inputHeight);
 
-// compute the ROI as (left, top, right, bottom)
+        // compute the ROI as (left, top, right, bottom)
         const int4 crop_roi = make_int4(crop_border.x, crop_border.y, inputWidth - crop_border.x, inputHeight - crop_border.y);
 
         printf("crop_roi.x=%d\n", crop_roi.x);
@@ -214,98 +215,110 @@ int main( int argc, char** argv )
         printf("crop_roi.z=%d\n", crop_roi.z);
         printf("crop_roi.w=%d\n", crop_roi.w);
         int crop_width = crop_roi.z - crop_roi.x;
-        int crop_height = crop_roi.w -crop_roi.y;
+        int crop_height = crop_roi.w - crop_roi.y;
         printf("crop_width = %d\n", crop_width);
         printf("crop_height = %d\n", crop_height);
 
-        while( !signal_recieved )
+        while (!signal_recieved)
         {
+            static time_t last_capture_time = 0;
+            time_t current_time = time(NULL);
+
             // capture next image image
 
-
-            if( !input->Capture(&image, 1000) )
+            if (!input->Capture(&image, 1000))
             {
                 // check for EOS
-                if( !input->IsStreaming() )
+                if (!input->IsStreaming())
                     break;
 
                 LogError("imagenet:  failed to capture next frame\n");
                 continue;
             }
-            if( CUDA_FAILED(cudaCrop(image, image, crop_roi, inputWidth, inputHeight)) )
+            if (CUDA_FAILED(cudaCrop(image, image, crop_roi, inputWidth, inputHeight)))
                 return false;
-
-
-
             float confidence = 0.0f;
             const int img_class = net->Classify(image, crop_width, crop_height, &confidence);
-
-            if( img_class >= 0 )
+            if (img_class >= 0)
             {
-                
-                if( font != NULL )
+                if (font != NULL)
                 {
                     char str[256];
                     sprintf(str, "%05.2f%% %s", confidence * 10.0f, net->GetClassDesc(img_class));
-
+                    // Check if an hour has passed
+                    if (difftime(current_time, last_capture_time) >= 3600)
+                    {
+                        // Reset capture for the new hour
+                        last_capture_time = current_time;
+                        // Capture only if image is Class 0
+                        if (img_class == 0)
+                        {
+                            printf("Store background image\n");
+                            str_framenr = std::to_string(record_frame);
+                            pic_file = usb_disk_path + pictures_store_background + str_slash + str_framenr + str_jpg;
+                            char arr[pic_file.length() + 1];
+                            strcpy(arr, pic_file.c_str());
+                            saveImage(arr, image, crop_width, crop_height);
+                            record_frame++;
+                        }
+                    }
                     font->OverlayText(image, crop_width, crop_height,
                                       str, 5, 5, make_float4(255, 255, 255, 255), make_float4(0, 0, 0, 100));
- 
-                    if(img_class == 1 && confidence > thresshold_class_1)
+
+                    if (img_class == 1 && confidence > thresshold_class_1)
                     {
-                        if(class_lock_cnt < threshold_lock_class_cnt-1)
+                        if (class_lock_cnt < threshold_lock_class_cnt - 1)
                         {
                             class_lock_cnt++;
                         }
                         else
                         {
-                        printf("Set GPIO pin 79 High\n");
-                        system("echo 1 > /sys/class/gpio/gpio79/value");
+                            printf("Set GPIO pin 79 High\n");
+                            system("echo 1 > /sys/class/gpio/gpio79/value");
 
-                        str_framenr = std::to_string(record_frame);
-                        pic_file = usb_disk_path + pictures_store_path + str_slash + str_framenr + str_jpg;
+                            str_framenr = std::to_string(record_frame);
+                            pic_file = usb_disk_path + pictures_store_path + str_slash + str_framenr + str_jpg;
 
-                        char arr[pic_file.length()+1];
-                        strcpy(arr,pic_file.c_str());
-                        saveImage(arr, image, crop_width, crop_height);
-                        //saveImage(oss, image, crop_width, crop_height);
+                            char arr[pic_file.length() + 1];
+                            strcpy(arr, pic_file.c_str());
+                            saveImage(arr, image, crop_width, crop_height);
+                            // saveImage(oss, image, crop_width, crop_height);
 
-                        record_frame++;
+                            record_frame++;
                         }
                     }
                     else
                     {
-                         if(class_lock_cnt > 0)
+                        if (class_lock_cnt > 0)
                         {
                             class_lock_cnt--;
                         }
-                        //class_lock_cnt = 0;
+                        // class_lock_cnt = 0;
                     }
-                    if(img_class == 2 && confidence > thresshold_class_2)
+                    if (img_class == 2 && confidence > thresshold_class_2)
                     {
                         class_lock_cnt = 0;
-                        //No prey
+                        // No prey
                         system("echo 0 > /sys/class/gpio/gpio79/value");
                         system("echo 0 > /sys/class/gpio/gpio50/value");
                         str_framenr = std::to_string(record_frame);
                         pic_file = usb_disk_path + pictures_store_path_no_prey + str_slash + str_framenr + str_jpg;
-                        char arr[pic_file.length()+1];
-                        strcpy(arr,pic_file.c_str());
+                        char arr[pic_file.length() + 1];
+                        strcpy(arr, pic_file.c_str());
                         saveImage(arr, image, crop_width, crop_height);
                         record_frame++;
                     }
                     else
                     {
-                   //      printf("Set GPIO pin 79 Low\n");
+                        //      printf("Set GPIO pin 79 Low\n");
                         system("echo 0 > /sys/class/gpio/gpio79/value");
-                   //      printf("Set GPIO pin 50 Low\n");
+                        //      printf("Set GPIO pin 50 Low\n");
                     }
-
                 }
             }
 
             // render outputs
-            if( output != NULL )
+            if (output != NULL)
             {
                 output->Render(image, crop_width, crop_height);
 
@@ -314,17 +327,14 @@ int main( int argc, char** argv )
                 sprintf(str, "TensorRT %i.%i.%i | %s | Network %.0f FPS", NV_TENSORRT_MAJOR, NV_TENSORRT_MINOR, NV_TENSORRT_PATCH, net->GetNetworkName(), net->GetNetworkFPS());
                 output->SetStatus(str);
 
-
                 // check if the user quit
-                if( !output->IsStreaming() )
+                if (!output->IsStreaming())
                     signal_recieved = true;
             }
 
             // print out timing info
-           // net->PrintProfilerTimes();
+            // net->PrintProfilerTimes();
         }
-
-
     }
 
     /*
