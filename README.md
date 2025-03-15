@@ -15,7 +15,7 @@ Here with other texts in lable.txt
         class2   = Cat with prey
         class3   = Cat no prey
 
-![](27.jpg)
+![]/data/hymenoptera_data/train/Cat1/105_2024-10-21.jpg
 
 ### New cat flap (updated 2022-04-24) Stereo view 3D input with a tunnel of mirrors.
 
